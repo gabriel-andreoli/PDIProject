@@ -1,0 +1,31 @@
+﻿using PDIProject.Domain.Entities;
+using PDIProject.Domain.Interfaces.Repositories;
+using PDIProject.Persistence;
+
+namespace PDIProject.Domain.Repositories
+{
+    public class CompanyRepository : ICompanyRepository
+    {
+        private readonly PDIDataContext _context;
+        public CompanyRepository(PDIDataContext context) 
+        { 
+            _context = context;
+        }
+
+        public IEnumerable<Company> GetAll() 
+        {
+            return _context.Companies.Where(x => !x.Deleted);
+        }
+
+        public Company GetById(int id) 
+        {
+            return _context.Companies.FirstOrDefault(x => x.Id == id);
+        }
+
+        public void Add(Company company)
+        {
+            _context.Add(company);
+            _context.SaveChanges();
+        }
+    }
+}
