@@ -12,6 +12,7 @@
         public string? Phone { get; set; }
         public string? PostalCode { get; set; }
         public int TotalEmployees { get; set; }
+        public List<User> Users { get; set; }
         public Company()
         {
             Deleted = false;
