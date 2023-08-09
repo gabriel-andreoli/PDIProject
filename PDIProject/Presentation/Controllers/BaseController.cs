@@ -2,7 +2,7 @@
 
 namespace PDIProject.Presentation.Controllers
 {
-    public class BaseController
+    public abstract class BaseController
     {
         public BaseController() { }
     }

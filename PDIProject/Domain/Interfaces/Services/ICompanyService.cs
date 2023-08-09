@@ -6,7 +6,7 @@ namespace PDIProject.Domain.Interfaces.Services
     public interface ICompanyService
     {
         IEnumerable<Company> GetAll();
-        Company GetBydId(int id);
+        Company GetById(int id);
         void CreateCompany(Company company);
     }
 }

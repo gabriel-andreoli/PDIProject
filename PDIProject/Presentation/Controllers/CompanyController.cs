@@ -27,7 +27,7 @@ namespace PDIProject.Presentation.Controllers
         [Route("{id}")]
         public IActionResult GetById(int id)
         {
-            var result = _companyService.GetBydId(id);
+            var result = _companyService.GetById(id);
             if (result == null)
                 return NotFound("The id not exists or not found");
 

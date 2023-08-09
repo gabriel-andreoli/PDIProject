@@ -17,14 +17,16 @@ namespace PDIProject.Domain.Services
             return _companyRepository.GetAll();
         }
 
-        public Company GetBydId(int id) 
+        public Company GetById(int id) 
         {
             return _companyRepository.GetById(id);
         }
 
         public void CreateCompany(Company company)
         {
-            //TODO VALIDATIONS
+            var companyExists = _companyRepository.GetById(company.Id);
+            if (companyExists != null)
+                throw new ArgumentException("O usuário já está presente no Banco de Dados");
             _companyRepository.Add(company);
         }
     }

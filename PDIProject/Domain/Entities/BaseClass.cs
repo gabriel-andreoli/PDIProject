@@ -1,6 +1,6 @@
 ﻿namespace PDIProject.Domain.Entities
 {
-    public class BaseClass
+    public abstract class BaseClass
     {
         public int Id { get; set; }
         public bool Deleted { get; set; }

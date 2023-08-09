@@ -5,7 +5,6 @@
         public string Description { get; set; }
         public int CompanyId { get; set; }
         public Company Company { get; set; }
-        public int TaskJobId { get; set; }
         public ICollection<TaskJob> TaskJobs { get; set; }
         public Requirement() 
         {

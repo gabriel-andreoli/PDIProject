@@ -8,8 +8,10 @@
         public string? Photo { get; set; }
         public int CompanyId { get; set; }
         public Company Company { get; set; }
-        public ICollection<TaskJob> Tasks { get; set; }
+        public int DepartmentId { get; set; }
+        public Department Deparment { get; set; }
         public ICollection<Hability> Habilities { get; set; }
+        public ICollection<TaskJob> TaskJobs { get; set; }
         public int OfficeId { get; set; }
         public Office Office { get; set; }
         public User() 

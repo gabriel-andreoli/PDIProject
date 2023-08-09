@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PDIProject.Domain.Entities;
 
 namespace PDIProject.Persistence
@@ -12,6 +13,9 @@ namespace PDIProject.Persistence
         public DbSet<User> Users { get; set; }
         public DbSet<Hability> Habilities { get; set; }
         public DbSet<Requirement> Requirements { get; set; }
-        public DbSet<TaskJob> Tasks { get; set; }
+        public DbSet<TaskJob> TaskJobs { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<Office> Offices { get; set; } 
     }
 }
