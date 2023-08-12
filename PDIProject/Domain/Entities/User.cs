@@ -9,7 +9,7 @@
         public int CompanyId { get; set; }
         public Company Company { get; set; }
         public int DepartmentId { get; set; }
-        public Department Deparment { get; set; }
+        public Department Department { get; set; }
         public ICollection<Hability> Habilities { get; set; }
         public ICollection<TaskJob> TaskJobs { get; set; }
         public int OfficeId { get; set; }

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PDIProject.Domain.Entities;
+using PDIProject.Persistence.Maps;
+using System.Reflection.Metadata;
 
 namespace PDIProject.Persistence
 {
@@ -16,6 +18,13 @@ namespace PDIProject.Persistence
         public DbSet<TaskJob> TaskJobs { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Team> Teams { get; set; }
-        public DbSet<Office> Offices { get; set; } 
+        public DbSet<Office> Offices { get; set; }
+        public DbSet<Adress> Adresses { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            UserMap.Map(modelBuilder);
+            CompanyMap.Map(modelBuilder);
+        }
     }
 }
