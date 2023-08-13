@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PDIProject.Domain.DTOs;
 using PDIProject.Domain.Entities;
 
 namespace PDIProject.Domain.Interfaces.Services
@@ -7,5 +8,6 @@ namespace PDIProject.Domain.Interfaces.Services
     {
         IEnumerable<User> GetAll();
         void CreateUser(User user);
+        User GetBydId(int id);
     }
 }

@@ -4,7 +4,8 @@ namespace PDIProject.Domain.Interfaces.Repositories
 {
     public interface IUserRepository
     {
-        public IEnumerable<User> GetAll();
-        public void Add(User user);
+        IEnumerable<User> GetAll();
+        void Add(User user);
+        User GetById(int id);
     }
 }

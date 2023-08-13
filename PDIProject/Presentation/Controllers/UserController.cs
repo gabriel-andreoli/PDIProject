@@ -23,6 +23,30 @@ namespace PDIProject.Presentation.Controllers
             return Ok(users);
         }
 
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult GetById(int id) 
+        {
+            var user = _userService.GetBydId(id);
+
+            if (user == null)
+                return NotFound();
+
+            return Ok(user);
+        }
+
+        //[HttpGet]
+        //[Route("{id}")]
+        //public IActionResult GetMinimalById(int id)
+        //{
+        //    var user = _userService.GetBydId(id);
+
+        //    if (user == null)
+        //        return NotFound();
+
+        //    return Ok(user);
+        //}
+
         [HttpPost]
         [Route("")]
         public IActionResult CreateUser(User user) 
