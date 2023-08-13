@@ -18,13 +18,18 @@ namespace PDIProject.Persistence
         public DbSet<TaskJob> TaskJobs { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Team> Teams { get; set; }
-        public DbSet<Office> Offices { get; set; }
+        public DbSet<JobPosition> Offices { get; set; }
         public DbSet<Adress> Adresses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             UserMap.Map(modelBuilder);
             CompanyMap.Map(modelBuilder);
+            //HabilityMap.Map(modelBuilder);
+            //RequirementMap.Map(modelBuilder);
+            TaskJobMap.Map(modelBuilder);
+            DepartmentMap.Map(modelBuilder);
+            TeamMap.Map(modelBuilder);
         }
     }
 }

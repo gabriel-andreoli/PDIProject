@@ -7,7 +7,6 @@ namespace PDIProject.Domain.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public ETaskJobStatus Status { get; set; }
-        public int UserId { get; set; }
         public int CompanyId { get; set; }
         public Company Company { get; set; }
         public ICollection<Requirement> Requirements { get; set; }
@@ -16,6 +15,8 @@ namespace PDIProject.Domain.Entities
         {
             Deleted = false;
             CreatedAt = DateTime.Now;
+            Requirements = new List<Requirement>();
+            Users = new List<User>();
         }
         
     }
