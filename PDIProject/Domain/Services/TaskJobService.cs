@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using PDIProject.Domain.DTOs;
+using PDIProject.Domain.DTOs.TaskJobDTOs;
 using PDIProject.Domain.Interfaces.Repositories;
 using PDIProject.Domain.Interfaces.Services;
 

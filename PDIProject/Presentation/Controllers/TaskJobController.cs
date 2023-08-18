@@ -22,6 +22,14 @@ namespace PDIProject.Presentation.Controllers
         }
 
         [HttpGet]
+        [Route("")]
+        public IActionResult GetByCompanyId(string companyId) 
+        {
+            var result = _taskJobService.GetByCompanyId();
+            return StatusCode((int)HttpStatusCode.OK, result);
+        }
+
+        [HttpGet]
         [Route("user/{id}")]
         public IActionResult GetInfoAndTaskJobsByUserId(int userId) 
         {
