@@ -8,6 +8,6 @@ namespace PDIProject.Domain.Interfaces.Services
     {
         IEnumerable<Company> GetAll();
         Company GetById(int id);
-        void CreateCompany(Company company);
+        void CreateCompany(CompanyCommand company);
     }
 }

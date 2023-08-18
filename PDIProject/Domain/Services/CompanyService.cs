@@ -24,12 +24,15 @@ namespace PDIProject.Domain.Services
             return _companyRepository.GetById(id);
         }
 
-        public void CreateCompany(Company company)
+        public void CreateCompany(CompanyCommand company)
         {
-            var companyExists = _companyRepository.GetById(company.Id);
-            if (companyExists != null)
-                throw new ArgumentException("A empresa já está presente no Banco de Dados");
-            _companyRepository.Add(company);
+            var newCompany = new Company()
+            { 
+                Name = company.Name,
+                TotalEmployees = company.TotalEmployees,
+                Email = company.Email
+            };
+            _companyRepository.Add(newCompany);
             Commit();
         }
     }

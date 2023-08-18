@@ -16,7 +16,7 @@ namespace PDIProject.Domain.Repositories
 
         public IEnumerable<Company> GetAll() 
         {
-            return _context.Companies.Include(x => x.Address).Where(x => !x.Deleted);
+            return _context.Companies.Where(x => !x.Deleted).AsNoTracking();
         }
 
         public Company GetById(int id) 

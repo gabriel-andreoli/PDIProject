@@ -4,7 +4,7 @@ namespace PDIProject.Domain.Services
 {
     public abstract class ServiceBase
     {
-        protected readonly IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         protected ServiceBase(IUnitOfWork unitOfWork)
         {

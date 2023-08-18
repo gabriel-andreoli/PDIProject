@@ -37,7 +37,7 @@ namespace PDIProject.Presentation.Controllers
 
         [HttpPost]
         [Route("")]
-        public IActionResult CreateCompany(Company company)
+        public IActionResult CreateCompany(CompanyCommand company)
         {
             if (company == null)
                 return BadRequest("Data is null");

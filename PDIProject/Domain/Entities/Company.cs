@@ -7,7 +7,7 @@
         public string? Phone { get; set; }
         public int TotalEmployees { get; set; }
         public int AddressId { get; set; }
-        public Address Address { get; set; }
+        public Address? Address { get; set; }
         public ICollection<User> Users { get; set; }
         public ICollection<TaskJob> TaskJobs { get; set; }
         public ICollection<Department> Departments { get; set; }
