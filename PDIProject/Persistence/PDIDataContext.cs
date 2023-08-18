@@ -19,7 +19,7 @@ namespace PDIProject.Persistence
         public DbSet<Department> Departments { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<JobPosition> Offices { get; set; }
-        public DbSet<Adress> Adresses { get; set; }
+        public DbSet<Address> Adresses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

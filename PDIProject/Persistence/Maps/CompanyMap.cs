@@ -8,10 +8,10 @@ namespace PDIProject.Persistence.Maps
         public static void Map(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Company>()
-                .HasOne(x => x.Adress)
-                .WithOne(x => x.Company)
-                .HasForeignKey<Adress>(x => x.CompanyId)
-                .IsRequired();
+                .HasOne(company => company.Address) 
+                .WithOne() 
+                .HasForeignKey<Company>(company => company.AddressId)
+                .IsRequired(); 
         }
     }
 }

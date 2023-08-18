@@ -1,13 +1,15 @@
-﻿using PDIProject.Domain.Entities;
+﻿using PDIProject.Domain.Commands;
+using PDIProject.Domain.Entities;
 using PDIProject.Domain.Interfaces.Repositories;
 using PDIProject.Domain.Interfaces.Services;
+using PDIProject.Persistence;
 
 namespace PDIProject.Domain.Services
 {
-    public class CompanyService : ICompanyService
+    public class CompanyService : ServiceBase, ICompanyService
     {
         private readonly ICompanyRepository _companyRepository;
-        public CompanyService(ICompanyRepository companyRepository) 
+        public CompanyService(IUnitOfWork unitOfWork, ICompanyRepository companyRepository) : base(unitOfWork)
         { 
             _companyRepository = companyRepository;
         }
@@ -26,8 +28,9 @@ namespace PDIProject.Domain.Services
         {
             var companyExists = _companyRepository.GetById(company.Id);
             if (companyExists != null)
-                throw new ArgumentException("O usuário já está presente no Banco de Dados");
+                throw new ArgumentException("A empresa já está presente no Banco de Dados");
             _companyRepository.Add(company);
+            Commit();
         }
     }
 }

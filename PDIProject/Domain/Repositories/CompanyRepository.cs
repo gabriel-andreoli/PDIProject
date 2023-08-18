@@ -1,4 +1,6 @@
-﻿using PDIProject.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PDIProject.Domain.Commands;
+using PDIProject.Domain.Entities;
 using PDIProject.Domain.Interfaces.Repositories;
 using PDIProject.Persistence;
 
@@ -14,18 +16,17 @@ namespace PDIProject.Domain.Repositories
 
         public IEnumerable<Company> GetAll() 
         {
-            return _context.Companies.Where(x => !x.Deleted);
+            return _context.Companies.Include(x => x.Address).Where(x => !x.Deleted);
         }
 
         public Company GetById(int id) 
         {
-            return _context.Companies.FirstOrDefault(x => x.Id == id);
+            return _context.Companies.FirstOrDefault(x => x.Id == id && !x.Deleted);
         }
 
         public void Add(Company company)
         {
             _context.Add(company);
-            _context.SaveChanges();
         }
     }
 }
