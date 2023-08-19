@@ -19,8 +19,10 @@ namespace PDIProject.Domain.Services
         public void CreateTeam(TeamCommand command)
         {
             var department = _departmentRepository.GetById(command.DepartmentId);
+
             if(department == null)
                 throw new ArgumentNullException($"{nameof(department)} is null");
+
             var newTeam = new Team() 
             {
                 Name = command.Name,
