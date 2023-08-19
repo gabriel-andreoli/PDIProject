@@ -13,10 +13,18 @@ namespace PDIProject.Domain.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly ICompanyRepository _companyRepository;
-        public UserService(IUnitOfWork unitOfWork,IUserRepository userRepository, ICompanyRepository companyRepository) : base(unitOfWork) 
+        private readonly IJobPositionRepository _jobPositionRepository;
+        public UserService
+            (
+                IUnitOfWork unitOfWork,
+                IUserRepository userRepository,
+                ICompanyRepository companyRepository,
+                IJobPositionRepository jobPositionRepository
+            ) : base(unitOfWork) 
         {
             _userRepository = userRepository;
             _companyRepository = companyRepository;
+            _jobPositionRepository = jobPositionRepository;
         }
         public IEnumerable<User> GetAll() 
         { 
@@ -39,6 +47,9 @@ namespace PDIProject.Domain.Services
             userNew.Company = _companyRepository.GetById(user.CompanyId);
             if (userNew.Company == null)
                 throw new ArgumentException("Forneça um CompanyId válido");
+            userNew.JobPosition = _jobPositionRepository.GetById(user.JobPositionId);
+            if (userNew.JobPosition == null)
+                throw new ArgumentException("Forneça um JobPositionId válido");
             _userRepository.Add(userNew);
             Commit();
         }

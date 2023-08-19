@@ -188,6 +188,9 @@ namespace PDIProject.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -203,7 +206,9 @@ namespace PDIProject.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Offices");
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("JobPositions");
                 });
 
             modelBuilder.Entity("PDIProject.Domain.Entities.Requirement", b =>
@@ -420,6 +425,15 @@ namespace PDIProject.Persistence.Migrations
                     b.Navigation("Company");
                 });
 
+            modelBuilder.Entity("PDIProject.Domain.Entities.JobPosition", b =>
+                {
+                    b.HasOne("PDIProject.Domain.Entities.Company", null)
+                        .WithMany("JobPositions")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("PDIProject.Domain.Entities.TaskJob", b =>
                 {
                     b.HasOne("PDIProject.Domain.Entities.Company", "Company")
@@ -502,6 +516,8 @@ namespace PDIProject.Persistence.Migrations
             modelBuilder.Entity("PDIProject.Domain.Entities.Company", b =>
                 {
                     b.Navigation("Departments");
+
+                    b.Navigation("JobPositions");
 
                     b.Navigation("TaskJobs");
 

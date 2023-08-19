@@ -13,7 +13,7 @@ namespace PDIProject.Persistence
         public DbSet<Company> Companies { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Hability> Habilities { get; set; }
-        public DbSet<JobPosition> Offices { get; set; }
+        public DbSet<JobPosition> JobPositions { get; set; }
         public DbSet<Requirement> Requirements { get; set; }
         public DbSet<TaskJob> TaskJobs { get; set; }
         public DbSet<Team> Teams { get; set; }

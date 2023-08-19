@@ -23,7 +23,6 @@ namespace PDIProject.Persistence.Migrations
                     State = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CompanyId = table.Column<int>(type: "int", nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -48,22 +47,6 @@ namespace PDIProject.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Habilities", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Offices",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Deleted = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Offices", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -124,6 +107,28 @@ namespace PDIProject.Persistence.Migrations
                     table.PrimaryKey("PK_Departments", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Departments_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "JobPositions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JobPositions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_JobPositions_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companies",
                         principalColumn: "Id");
@@ -223,9 +228,9 @@ namespace PDIProject.Persistence.Migrations
                         principalTable: "Companies",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Users_Offices_JobPositionId",
+                        name: "FK_Users_JobPositions_JobPositionId",
                         column: x => x.JobPositionId,
-                        principalTable: "Offices",
+                        principalTable: "JobPositions",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Users_Teams_TeamId",
@@ -295,6 +300,11 @@ namespace PDIProject.Persistence.Migrations
                 column: "UsersId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_JobPositions_CompanyId",
+                table: "JobPositions",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RequirementTaskJob_TaskJobsId",
                 table: "RequirementTaskJob",
                 column: "TaskJobsId");
@@ -355,7 +365,7 @@ namespace PDIProject.Persistence.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Offices");
+                name: "JobPositions");
 
             migrationBuilder.DropTable(
                 name: "Teams");

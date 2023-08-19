@@ -26,6 +26,7 @@ builder.Services.AddScoped<ITaskJobRepository, TaskJobRepository>();
 builder.Services.AddScoped<ITaskJobService, TaskJobService>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+builder.Services.AddScoped<IJobPositionRepository, JobPositionRepository>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

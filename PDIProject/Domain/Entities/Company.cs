@@ -11,6 +11,7 @@
         public ICollection<User> Users { get; set; }
         public ICollection<TaskJob> TaskJobs { get; set; }
         public ICollection<Department> Departments { get; set; }
+        public ICollection<JobPosition> JobPositions { get; set; }        
         public Company()
         {
             Deleted = false;
@@ -18,6 +19,7 @@
             Users = new List<User>();
             TaskJobs = new List<TaskJob>();
             Departments = new List<Department>();
+            JobPositions = new List<JobPosition>();
         }
 
         public void Update(string name, string email, string phone, int totalEmployees)
