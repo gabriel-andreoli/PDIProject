@@ -11,15 +11,15 @@ namespace PDIProject.Persistence
         public PDIDataContext(DbContextOptions<PDIDataContext> options) : base(options)
         {
         }
+        public DbSet<Address> Adresses { get; set; }
         public DbSet<Company> Companies { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<Department> Departments { get; set; }
         public DbSet<Hability> Habilities { get; set; }
+        public DbSet<JobPosition> Offices { get; set; }
         public DbSet<Requirement> Requirements { get; set; }
         public DbSet<TaskJob> TaskJobs { get; set; }
-        public DbSet<Department> Departments { get; set; }
         public DbSet<Team> Teams { get; set; }
-        public DbSet<JobPosition> Offices { get; set; }
-        public DbSet<Address> Adresses { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

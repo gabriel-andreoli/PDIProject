@@ -16,7 +16,6 @@ namespace PDIProject.Domain.Services
         private readonly IUserRepository _userRepository;
         private readonly ITeamRepository _teamRepository;
         private readonly ICompanyRepository _companyRepository;
-        private readonly IMapper _mapper;
 
         public TaskJobService
             (
