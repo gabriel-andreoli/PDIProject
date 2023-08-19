@@ -15,12 +15,6 @@ namespace PDIProject.Persistence.Maps
                 .IsRequired();
 
             modelBuilder.Entity<User>()
-                .HasOne(x => x.Department)
-                .WithMany(x => x.Users)
-                .HasForeignKey(x => x.DepartmentId)
-                .IsRequired();
-
-            modelBuilder.Entity<User>()
                 .HasOne(x => x.Team)
                 .WithMany(x => x.Users)
                 .HasForeignKey(x => x.TeamId)

@@ -30,6 +30,10 @@ namespace PDIProject.Persistence
             TaskJobMap.Map(modelBuilder);
             DepartmentMap.Map(modelBuilder);
             TeamMap.Map(modelBuilder);
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.NoAction;
+            }
         }
     }
 }
