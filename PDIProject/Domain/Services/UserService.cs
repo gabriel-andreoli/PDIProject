@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PDIProject.Domain.Commands;
+using PDIProject.Domain.Commands.UserCommands;
 using PDIProject.Domain.DTOs;
 using PDIProject.Domain.Entities;
 using PDIProject.Domain.Interfaces.Repositories;
@@ -38,18 +38,24 @@ namespace PDIProject.Domain.Services
 
         public void CreateUser(UserCommand user) 
         {
+            var company = _companyRepository.GetById(user.CompanyId);
+            var jobPosition = _jobPositionRepository.GetById(user.JobPositionId);
+
+            if (company == null)
+                throw new ArgumentException("Forneça um CompanyId válido");
+
+            if (jobPosition == null)
+                throw new ArgumentException("Forneça um JobPositionId válido");
+
             var userNew = new User()
             {
                 Name = user.Name,
                 Email = user.Email,
-                Password = user.Password
-            };
-            userNew.Company = _companyRepository.GetById(user.CompanyId);
-            if (userNew.Company == null)
-                throw new ArgumentException("Forneça um CompanyId válido");
-            userNew.JobPosition = _jobPositionRepository.GetById(user.JobPositionId);
-            if (userNew.JobPosition == null)
-                throw new ArgumentException("Forneça um JobPositionId válido");
+                Password = user.Password,
+                Company = company,
+                JobPosition = jobPosition
+            };          
+
             _userRepository.Add(userNew);
             Commit();
         }

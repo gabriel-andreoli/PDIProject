@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PDIProject.Domain.Commands;
+using PDIProject.Domain.Commands.UserCommands;
 using PDIProject.Domain.DTOs;
 using PDIProject.Domain.Entities;
 

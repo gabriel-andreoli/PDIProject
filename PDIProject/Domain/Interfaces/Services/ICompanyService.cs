@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PDIProject.Domain.Commands;
+using PDIProject.Domain.Commands.CompanyCommands;
 using PDIProject.Domain.Entities;
 
 namespace PDIProject.Domain.Interfaces.Services

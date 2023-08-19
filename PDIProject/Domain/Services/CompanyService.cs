@@ -1,4 +1,4 @@
-﻿using PDIProject.Domain.Commands;
+﻿using PDIProject.Domain.Commands.CompanyCommands;
 using PDIProject.Domain.Entities;
 using PDIProject.Domain.Interfaces.Repositories;
 using PDIProject.Domain.Interfaces.Services;

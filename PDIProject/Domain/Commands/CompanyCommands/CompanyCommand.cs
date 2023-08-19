@@ -1,7 +1,7 @@
 ﻿using PDIProject.Domain.DTOs.AddressDTOs;
 using PDIProject.Domain.Entities;
 
-namespace PDIProject.Domain.Commands
+namespace PDIProject.Domain.Commands.CompanyCommands
 {
     public class CompanyCommand
     {

@@ -1,6 +1,6 @@
 ﻿using PDIProject.Domain.Entities;
 
-namespace PDIProject.Domain.Commands
+namespace PDIProject.Domain.Commands.UserCommands
 {
     public class UserCommand
     {
