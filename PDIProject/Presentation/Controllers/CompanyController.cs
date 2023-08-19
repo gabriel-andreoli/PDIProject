@@ -39,9 +39,6 @@ namespace PDIProject.Presentation.Controllers
         [Route("")]
         public IActionResult CreateCompany(CompanyCommand company)
         {
-            if (company == null)
-                return BadRequest("Data is null");
-
             _companyService.CreateCompany(company);
             return StatusCode(201);
         }

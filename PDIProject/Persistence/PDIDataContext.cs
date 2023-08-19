@@ -8,9 +8,7 @@ namespace PDIProject.Persistence
 {
     public class PDIDataContext : DbContext
     {
-        public PDIDataContext(DbContextOptions<PDIDataContext> options) : base(options)
-        {
-        }
+        public PDIDataContext(DbContextOptions<PDIDataContext> options) : base(options) {}
         public DbSet<Address> Adresses { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Department> Departments { get; set; }
