@@ -47,17 +47,17 @@ namespace PDIProject.Presentation.Controllers
 
         [HttpPost]
         [Route("hability")]
-        public IActionResult CreateHability(HabilityCommand command)
+        public IActionResult CreateAbility(AbilityCommand command)
         {
-            _userService.CreateHability(command);
+            _userService.CreateAbility(command);
             return StatusCode((int)HttpStatusCode.Created, "Habilidade criada com sucesso!");
         }
 
         [HttpPost]
         [Route("hability/assign")]
-        public IActionResult AssignHabilityOnUser(HabilityUserCommand command)
+        public IActionResult AssignHabilityOnUser(AbilityUserCommand command)
         {
-            _userService.AssignHabilityOnUser(command);
+            _userService.AssignAbilityOnUser(command);
             return StatusCode((int)HttpStatusCode.Created, "Usuário vinculado com a habilidade com sucesso!");
         }
 

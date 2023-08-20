@@ -73,46 +73,46 @@ namespace PDIProject.Domain.Services
             Commit();
         }
 
-        public void CreateHability(HabilityCommand command) 
+        public void CreateAbility(AbilityCommand command) 
         {
             var company = _companyRepository.GetById(command.CompanyId);
             if (company == null)
                 throw new ArgumentNullException("Company não existente, verifique os dados e tente novamente");
 
-            var hability = new Hability()
+            var ability = new Ability()
             { 
                 Name= command.Name,
                 Description= command.Description,
                 CompanyId= command.CompanyId,
             };
 
-            _userRepository.CreateHability(hability);
+            _userRepository.CreateAbility(ability);
             Commit();
         }
 
-        public void AssignHabilityOnUser(HabilityUserCommand command) 
+        public void AssignAbilityOnUser(AbilityUserCommand command) 
         {
             //var user = _userRepository.GetById(command.UserId);
-            var user = _userRepository.GetByIdWithHabilities(command.UserId);
-            var hability = _userRepository.GetHabilityById(command.HabilityId);
+            var user = _userRepository.GetByIdWithAbilities(command.UserId);
+            var ability = _userRepository.GetAbilityById(command.AbilityId);
 
             if (user == null)
                 throw new ArgumentNullException("Usuário não encontrado");
 
-            if (hability == null)
+            if (ability == null)
                 throw new ArgumentNullException("Habilidade não encontrada");
 
-            if (user.HabilitiesUser.Any(x => x.HabilityId == hability.Id))
+            if (user.AbilitiesUsers.Any(x => x.AbilityId == ability.Id))
                 throw new Exception("Uma mesma habilidade não pode ser vinculada duas vezes para um mesmo usuário");
 
-            var habilityUser = new HabilityUser()
+            var abilityUser = new AbilityUser()
             {
                 User = user,
-                Hability = hability,
+                Ability = ability,
                 DateAcquisition = command.DateAcquisition.ToDateTime()
             };
 
-            _userRepository.AssignHabilityOnUser(habilityUser);
+            _userRepository.AssignAbilityOnUser(abilityUser);
             Commit();
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace PDIProject.Domain.DTOs.HabilityDTOs
 {
-    public class HabilityDTO
+    public class AbilityDTO
     {
         public string Name { get; set; }
         public string Description { get; set; }

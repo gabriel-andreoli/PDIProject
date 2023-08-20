@@ -11,12 +11,12 @@ namespace PDIProject.Domain.Entities
         public int CompanyId { get; set; }
         public Company Company { get; set; }
         public int TeamId { get; set; }
-        public ICollection<TaskJobUser> TaskJobUsers { get; set; }
+        public ICollection<TaskJobUser> TaskJobsUsers { get; set; }
         public TaskJob() 
         {
             Deleted = false;
             CreatedAt = DateTime.Now;
-            TaskJobUsers = new List<TaskJobUser>();
+            TaskJobsUsers = new List<TaskJobUser>();
         }
         
     }

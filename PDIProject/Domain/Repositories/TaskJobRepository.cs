@@ -14,7 +14,7 @@ namespace PDIProject.Domain.Repositories
 
         public void AddTaskJobUser(TaskJobUser obj) 
         {
-            _context.TaskJobUsers.Add(obj);
+            _context.TaskJobsUsers.Add(obj);
         }
 
         public void Add(TaskJob taskJob) 

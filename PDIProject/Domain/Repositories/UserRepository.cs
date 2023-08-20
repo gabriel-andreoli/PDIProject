@@ -32,9 +32,9 @@ namespace PDIProject.Domain.Repositories
         {
             return _context.Users
                 .Include(jb => jb.JobPosition)
-                .Include(hu => hu.HabilitiesUser)
-                .ThenInclude(h => h.Hability)
-                .Include(tju => tju.TaskJobUsers)
+                .Include(hu => hu.AbilitiesUsers)
+                .ThenInclude(h => h.Ability)
+                .Include(tju => tju.TaskJobsUsers)
                 .ThenInclude(tj => tj.TaskJob)
                 .Where(x => x.TeamId == teamId && !x.Deleted).ToList();
         }
@@ -46,27 +46,27 @@ namespace PDIProject.Domain.Repositories
 
         public User GetByIdWithTaskJob(int userId) 
         {
-            return _context.Users.Include(tju => tju.TaskJobUsers).ThenInclude(tj => tj.TaskJob).Where(x => x.Id == userId && !x.Deleted).FirstOrDefault();
+            return _context.Users.Include(tju => tju.TaskJobsUsers).ThenInclude(tj => tj.TaskJob).Where(x => x.Id == userId && !x.Deleted).FirstOrDefault();
         }
 
-        public void CreateHability(Hability hability) 
+        public void CreateAbility(Ability ability) 
         {
-            _context.Habilities.Add(hability);
+            _context.Abilities.Add(ability);
         }
 
-        public Hability GetHabilityById(int habilityId)
+        public Ability GetAbilityById(int abilityId)
         {
-            return _context.Habilities.Where(x => x.Id == habilityId && !x.Deleted).FirstOrDefault();
+            return _context.Abilities.Where(x => x.Id == abilityId && !x.Deleted).FirstOrDefault();
         }
 
-        public void AssignHabilityOnUser(HabilityUser habilityUser) 
+        public void AssignAbilityOnUser(AbilityUser abilityUser) 
         {
-            _context.HabilitiesUsers.Add(habilityUser);
+            _context.AbilitiesUsers.Add(abilityUser);
         }
 
-        public User GetByIdWithHabilities(int userId) 
+        public User GetByIdWithAbilities(int userId) 
         {
-            return _context.Users.Include(hu => hu.HabilitiesUser).ThenInclude(h => h.Hability).Where(x => x.Id == userId && !x.Deleted).FirstOrDefault();
+            return _context.Users.Include(hu => hu.AbilitiesUsers).ThenInclude(h => h.Ability).Where(x => x.Id == userId && !x.Deleted).FirstOrDefault();
         }
     }
 }

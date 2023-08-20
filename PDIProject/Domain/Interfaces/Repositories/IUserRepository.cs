@@ -12,9 +12,9 @@ namespace PDIProject.Domain.Interfaces.Repositories
         //TaskJobs
         User GetByIdWithTaskJob(int userId);
         //Habilities
-        void CreateHability(Hability hability);
-        Hability GetHabilityById(int habilityId);
-        void AssignHabilityOnUser(HabilityUser habilityUser);
-        User GetByIdWithHabilities(int userId);
+        void CreateAbility(Ability Ability);
+        Ability GetAbilityById(int abilityId);
+        void AssignAbilityOnUser(AbilityUser abilityUser);
+        User GetByIdWithAbilities(int userId);
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace PDIProject.Domain.Commands.HabilityCommands
 {
-    public class HabilityUserCommand
+    public class AbilityUserCommand
     {
-        public int HabilityId { get; set; }
+        public int AbilityId { get; set; }
         public int UserId { get; set; }
         public int DateAcquisition { get; set; }
     }

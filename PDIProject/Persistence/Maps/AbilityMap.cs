@@ -3,14 +3,14 @@ using PDIProject.Domain.Entities;
 
 namespace PDIProject.Persistence.Maps
 {
-    public static class HabilityMap
+    public static class AbilityMap
     {
         public static void Map(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Hability>()
-                .HasMany(x => x.HabilitiesUser)
-                .WithOne(x => x.Hability)
-                .HasForeignKey(x => x.HabilityId)
+            modelBuilder.Entity<Ability>()
+                .HasMany(x => x.AbilitiesUsers)
+                .WithOne(x => x.Ability)
+                .HasForeignKey(x => x.AbilityId)
                 .IsRequired();
         }
     }

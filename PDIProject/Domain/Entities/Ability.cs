@@ -1,16 +1,16 @@
 ﻿namespace PDIProject.Domain.Entities
 {
-    public class Hability : BaseClass
+    public class Ability : BaseClass
     {
         public string Name { get; set; }
         public string Description { get; set; }
         public int CompanyId { get; set; }
-        public ICollection<HabilityUser> HabilitiesUser { get; set; }
-        public Hability() 
+        public ICollection<AbilityUser> AbilitiesUsers { get; set; }
+        public Ability() 
         {
             Deleted = false;
             CreatedAt = DateTime.Now;
-            HabilitiesUser = new List<HabilityUser>();
+            AbilitiesUsers = new List<AbilityUser>();
         }
     }
 }

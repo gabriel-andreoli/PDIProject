@@ -33,7 +33,7 @@ namespace PDIProject.Domain.Repositories
             return _context.Teams
                 .Include(d => d.Department)
                 .Include(u => u.Users)
-                .ThenInclude(t => t.TaskJobUsers)
+                .ThenInclude(t => t.TaskJobsUsers)
                 .ThenInclude(tj => tj.TaskJob)
                 .Where(x => x.Department.CompanyId == companyId && !x.Deleted);
         }

@@ -28,13 +28,13 @@ namespace PDIProject.Persistence.Maps
 
             //N-N
             modelBuilder.Entity<User>()
-                .HasMany(x => x.HabilitiesUser)
+                .HasMany(x => x.AbilitiesUsers)
                 .WithOne(x => x.User)
                 .HasForeignKey(x => x.UserId)
                 .IsRequired();
 
             modelBuilder.Entity<User>()
-                .HasMany(x => x.TaskJobUsers)
+                .HasMany(x => x.TaskJobsUsers)
                 .WithOne(x => x.User)
                 .HasForeignKey(x => x.UserId)
                 .IsRequired();

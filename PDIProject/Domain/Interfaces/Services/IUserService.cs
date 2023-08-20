@@ -11,7 +11,7 @@ namespace PDIProject.Domain.Interfaces.Services
         IEnumerable<User> GetAll();
         void CreateUser(UserCommand user);
         User GetBydId(int id);
-        void CreateHability(HabilityCommand command);
-        void AssignHabilityOnUser(HabilityUserCommand command);
+        void CreateAbility(AbilityCommand command);
+        void AssignAbilityOnUser(AbilityUserCommand command);
     }
 }

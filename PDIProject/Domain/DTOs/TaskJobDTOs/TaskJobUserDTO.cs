@@ -10,7 +10,7 @@ namespace PDIProject.Domain.DTOs.TaskJobDTOs
         public string? Photo { get; set; }
         public string Email { get; set; }
         public string JobPositionName { get; set; }
-        public ICollection<HabilityDTO> Habilities { get; set; }
+        public ICollection<AbilityDTO> Abilities { get; set; }
         public ICollection<TaskJobMinimalDTO> TaskJobs { get; set; }
         public TaskJobUserDTO() { }
     }

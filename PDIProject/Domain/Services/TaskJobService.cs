@@ -78,7 +78,7 @@ namespace PDIProject.Domain.Services
                 if (user == null)
                     throw new ArgumentNullException("Usuário não encontrado");
 
-                if (user.TaskJobUsers.Any(x => x.TaskJobId == taskJob.Id))
+                if (user.TaskJobsUsers.Any(x => x.TaskJobId == taskJob.Id))
                     throw new Exception("Não é possível atribuir uma tarefa para um usuário que já está vinculado a esta tarefa.");
 
                 var taskJobUser = new TaskJobUser()
@@ -107,13 +107,13 @@ namespace PDIProject.Domain.Services
                 foreach (var user in users)
                 {
                     var userDTO = user.ToTaskJobUserDTO();
-                    foreach (var habilityUser in user.HabilitiesUser) 
+                    foreach (var habilityUser in user.AbilitiesUsers) 
                     {
-                        var habilityDTO = habilityUser.Hability.ToHabilityDTO();
-                        userDTO.Habilities.Add(habilityDTO);
+                        var habilityDTO = habilityUser.Ability.ToAbilityDTO();
+                        userDTO.Abilities.Add(habilityDTO);
                     }
 
-                    foreach (var taskJobUser in user.TaskJobUsers)
+                    foreach (var taskJobUser in user.TaskJobsUsers)
                     {
                         var taskJobDTO = taskJobUser.TaskJob.ToTaskJobMinimalDTO();
                         userDTO.TaskJobs.Add(taskJobDTO);

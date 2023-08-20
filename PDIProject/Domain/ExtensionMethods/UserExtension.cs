@@ -15,7 +15,7 @@ namespace PDIProject.Domain.ExtensionMethods
                 Photo = user.Photo,
                 Email = user.Email,
                 JobPositionName = user.JobPosition.Name,
-                Habilities = new List<HabilityDTO>(),
+                Abilities = new List<AbilityDTO>(),
                 TaskJobs = new List<TaskJobMinimalDTO>()
             };
         }
