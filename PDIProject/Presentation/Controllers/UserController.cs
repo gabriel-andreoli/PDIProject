@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PDIProject.Domain.Commands.HabilityCommands;
 using PDIProject.Domain.Commands.UserCommands;
 using PDIProject.Domain.Entities;
 using PDIProject.Domain.Interfaces.Services;
@@ -42,6 +43,22 @@ namespace PDIProject.Presentation.Controllers
         {
             _userService.CreateUser(user);
             return StatusCode((int)HttpStatusCode.Created, "Usuário criado com sucesso!");
+        }
+
+        [HttpPost]
+        [Route("hability")]
+        public IActionResult CreateHability(HabilityCommand command)
+        {
+            _userService.CreateHability(command);
+            return StatusCode((int)HttpStatusCode.Created, "Habilidade criada com sucesso!");
+        }
+
+        [HttpPost]
+        [Route("hability/assign")]
+        public IActionResult AssignHabilityOnUser(HabilityUserCommand command)
+        {
+            _userService.AssignHabilityOnUser(command);
+            return StatusCode((int)HttpStatusCode.Created, "Habilidade criada com sucesso!");
         }
 
 

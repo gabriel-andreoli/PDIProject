@@ -8,5 +8,7 @@ namespace PDIProject.Domain.Interfaces.Repositories
         void Add(User user);
         User GetById(int id);
         User GetJobPositionByUserId(int userId);
+        void CreateHability(Hability hability);
+        void AssignHabilityOnUser(HabilityUser habilityUser);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PDIProject.Domain.Commands.HabilityCommands;
 using PDIProject.Domain.Commands.UserCommands;
 using PDIProject.Domain.DTOs;
 using PDIProject.Domain.Entities;
@@ -69,6 +70,28 @@ namespace PDIProject.Domain.Services
 
             _userRepository.Add(userNew);
             Commit();
+        }
+
+        public void CreateHability(HabilityCommand command) 
+        {
+            var company = _companyRepository.GetById(command.CompanyId);
+            if (company == null)
+                throw new ArgumentNullException("Company não existente, verifique os dados e tente novamente");
+
+            var hability = new Hability()
+            { 
+                Name= command.Name,
+                Description= command.Description,
+                CompanyId= command.CompanyId,
+            };
+
+            _userRepository.CreateHability(hability);
+            Commit();
+        }
+
+        public void AssignHabilityOnUser(HabilityUserCommand command) 
+        {
+            _userRepository.AssignHabilityOnUser(habilityUser);
         }
     }
 }

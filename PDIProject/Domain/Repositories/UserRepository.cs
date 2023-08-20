@@ -32,5 +32,15 @@ namespace PDIProject.Domain.Repositories
         {
             return _context.Users.Include(jb => jb.JobPosition).Where(x => x.Id == userId).FirstOrDefault();
         }
+
+        public void CreateHability(Hability hability) 
+        {
+            _context.Habilities.Add(hability);
+        }
+
+        public void AssignHabilityOnUser(HabilityUser habilityUser) 
+        {
+            _context.HabilitiesUsers.Add(habilityUser);
+        }
     }
 }
