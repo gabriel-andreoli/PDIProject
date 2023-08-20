@@ -21,5 +21,10 @@ namespace PDIProject.Domain.Repositories
         {
             _context.TaskJobs.Add(taskJob);
         }
+
+        public TaskJob GetById(int id) 
+        {
+            return _context.TaskJobs.Where(x => x.Id == id && !x.Deleted).FirstOrDefault();
+        }
     }
 }

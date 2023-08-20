@@ -37,5 +37,13 @@ namespace PDIProject.Presentation.Controllers
             _taskJobService.CreateTaskJob(command);
             return StatusCode(201);
         }
+
+        [HttpPost]
+        [Route("assign")]
+        public IActionResult AssignTaskJobOnUser(TaskJobUserCommand command)
+        {
+            _taskJobService.AssignTaskJobOnUser(command);
+            return StatusCode(201);
+        }
     }
 }

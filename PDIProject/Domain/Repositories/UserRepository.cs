@@ -28,9 +28,25 @@ namespace PDIProject.Domain.Repositories
             _context.Users.Add(user);
         }
 
+        public List<User> GetAllByTeamId(int teamId)
+        {
+            return _context.Users
+                .Include(jb => jb.JobPosition)
+                .Include(hu => hu.HabilitiesUser)
+                .ThenInclude(h => h.Hability)
+                .Include(tju => tju.TaskJobUsers)
+                .ThenInclude(tj => tj.TaskJob)
+                .Where(x => x.TeamId == teamId && !x.Deleted).ToList();
+        }
+
         public User GetJobPositionByUserId(int userId) 
         {
-            return _context.Users.Include(jb => jb.JobPosition).Where(x => x.Id == userId).FirstOrDefault();
+            return _context.Users.Include(jb => jb.JobPosition).Where(x => x.Id == userId && !x.Deleted).FirstOrDefault();
+        }
+
+        public User GetByIdWithTaskJob(int userId) 
+        {
+            return _context.Users.Include(tju => tju.TaskJobUsers).ThenInclude(tj => tj.TaskJob).Where(x => x.Id == userId && !x.Deleted).FirstOrDefault();
         }
 
         public void CreateHability(Hability hability) 
@@ -38,9 +54,19 @@ namespace PDIProject.Domain.Repositories
             _context.Habilities.Add(hability);
         }
 
+        public Hability GetHabilityById(int habilityId)
+        {
+            return _context.Habilities.Where(x => x.Id == habilityId && !x.Deleted).FirstOrDefault();
+        }
+
         public void AssignHabilityOnUser(HabilityUser habilityUser) 
         {
             _context.HabilitiesUsers.Add(habilityUser);
+        }
+
+        public User GetByIdWithHabilities(int userId) 
+        {
+            return _context.Users.Include(hu => hu.HabilitiesUser).ThenInclude(h => h.Hability).Where(x => x.Id == userId && !x.Deleted).FirstOrDefault();
         }
     }
 }

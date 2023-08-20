@@ -3,6 +3,7 @@ using PDIProject.Domain.Commands.HabilityCommands;
 using PDIProject.Domain.Commands.UserCommands;
 using PDIProject.Domain.DTOs;
 using PDIProject.Domain.Entities;
+using PDIProject.Domain.ExtensionMethods;
 using PDIProject.Domain.Interfaces.Repositories;
 using PDIProject.Domain.Interfaces.Services;
 using PDIProject.Domain.Repositories;
@@ -91,7 +92,28 @@ namespace PDIProject.Domain.Services
 
         public void AssignHabilityOnUser(HabilityUserCommand command) 
         {
+            //var user = _userRepository.GetById(command.UserId);
+            var user = _userRepository.GetByIdWithHabilities(command.UserId);
+            var hability = _userRepository.GetHabilityById(command.HabilityId);
+
+            if (user == null)
+                throw new ArgumentNullException("Usuário não encontrado");
+
+            if (hability == null)
+                throw new ArgumentNullException("Habilidade não encontrada");
+
+            if (user.HabilitiesUser.Any(x => x.HabilityId == hability.Id))
+                throw new Exception("Uma mesma habilidade não pode ser vinculada duas vezes para um mesmo usuário");
+
+            var habilityUser = new HabilityUser()
+            {
+                User = user,
+                Hability = hability,
+                DateAcquisition = command.DateAcquisition.ToDateTime()
+            };
+
             _userRepository.AssignHabilityOnUser(habilityUser);
+            Commit();
         }
     }
 }

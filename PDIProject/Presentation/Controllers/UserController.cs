@@ -58,9 +58,8 @@ namespace PDIProject.Presentation.Controllers
         public IActionResult AssignHabilityOnUser(HabilityUserCommand command)
         {
             _userService.AssignHabilityOnUser(command);
-            return StatusCode((int)HttpStatusCode.Created, "Habilidade criada com sucesso!");
+            return StatusCode((int)HttpStatusCode.Created, "Usuário vinculado com a habilidade com sucesso!");
         }
-
 
     }
 }

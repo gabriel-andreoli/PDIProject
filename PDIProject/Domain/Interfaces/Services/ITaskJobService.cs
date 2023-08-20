@@ -8,5 +8,6 @@ namespace PDIProject.Domain.Interfaces.Services
     {
         TaskJobsByCompanyIdDTO GetByCompanyId(int companyId);
         void CreateTaskJob(TaskJobCommand command);
+        void AssignTaskJobOnUser(TaskJobUserCommand command);
     }
 }

@@ -7,5 +7,6 @@ namespace PDIProject.Domain.Interfaces.Repositories
     {
         void AddTaskJobUser(TaskJobUser obj);
         void Add(TaskJob taskJob);
+        TaskJob GetById(int id);
     }
 }
