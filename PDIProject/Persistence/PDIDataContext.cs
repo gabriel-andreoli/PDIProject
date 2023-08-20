@@ -13,9 +13,10 @@ namespace PDIProject.Persistence
         public DbSet<Company> Companies { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Hability> Habilities { get; set; }
+        public DbSet<HabilityUser> HabilitiesUsers { get; set; }
         public DbSet<JobPosition> JobPositions { get; set; }
-        public DbSet<Requirement> Requirements { get; set; }
         public DbSet<TaskJob> TaskJobs { get; set; }
+        public DbSet<TaskJobUser> TaskJobUsers { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<User> Users { get; set; }
 
@@ -23,8 +24,7 @@ namespace PDIProject.Persistence
         {
             UserMap.Map(modelBuilder);
             CompanyMap.Map(modelBuilder);
-            //HabilityMap.Map(modelBuilder);
-            //RequirementMap.Map(modelBuilder);
+            HabilityMap.Map(modelBuilder);
             TaskJobMap.Map(modelBuilder);
             DepartmentMap.Map(modelBuilder);
             TeamMap.Map(modelBuilder);

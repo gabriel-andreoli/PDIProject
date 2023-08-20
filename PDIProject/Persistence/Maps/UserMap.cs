@@ -28,12 +28,16 @@ namespace PDIProject.Persistence.Maps
 
             //N-N
             modelBuilder.Entity<User>()
-                .HasMany(x => x.Habilities)
-                .WithMany(x => x.Users);
+                .HasMany(x => x.HabilitiesUser)
+                .WithOne(x => x.User)
+                .HasForeignKey(x => x.UserId)
+                .IsRequired();
 
             modelBuilder.Entity<User>()
-                .HasMany(x => x.TaskJobs)
-                .WithMany(x => x.Users);
+                .HasMany(x => x.TaskJobUsers)
+                .WithOne(x => x.User)
+                .HasForeignKey(x => x.UserId)
+                .IsRequired();
         }
     }
 }

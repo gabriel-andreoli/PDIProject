@@ -1,4 +1,5 @@
-﻿using PDIProject.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PDIProject.Domain.Entities;
 using PDIProject.Domain.Interfaces.Repositories;
 using PDIProject.Persistence;
 
@@ -25,6 +26,11 @@ namespace PDIProject.Domain.Repositories
         public void Add(User user) 
         {
             _context.Users.Add(user);
+        }
+
+        public User GetJobPositionByUserId(int userId) 
+        {
+            return _context.Users.Include(jb => jb.JobPosition).Where(x => x.Id == userId).FirstOrDefault();
         }
     }
 }

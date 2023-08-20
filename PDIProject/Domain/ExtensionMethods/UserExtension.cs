@@ -1,4 +1,5 @@
-﻿using PDIProject.Domain.DTOs.TaskJobDTOs;
+﻿using PDIProject.Domain.DTOs.HabilityDTOs;
+using PDIProject.Domain.DTOs.TaskJobDTOs;
 using PDIProject.Domain.Entities;
 
 namespace PDIProject.Domain.ExtensionMethods
@@ -14,8 +15,8 @@ namespace PDIProject.Domain.ExtensionMethods
                 Photo = user.Photo,
                 Email = user.Email,
                 JobPositionName = user.JobPosition.Name,
-                Habilities = null,
-                TaskJobs = null
+                Habilities = new List<HabilityDTO>(),
+                TaskJobs = new List<TaskJobMinimalDTO>()
             };
         }
     }

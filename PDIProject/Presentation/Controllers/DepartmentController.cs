@@ -15,6 +15,7 @@ namespace PDIProject.Presentation.Controllers
         }
 
         [HttpPost]
+        [Route("")]
         public IActionResult CreateDepartment(DepartmentCommand command)
         {
             _departmentService.CreateDepartment(command);

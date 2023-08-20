@@ -5,7 +5,7 @@ namespace PDIProject.Domain.DTOs.TaskJobDTOs
 {
     public class TaskJobsByCompanyIdDTO
     {
-        public List<TeamDTO> Teams { get; set; }
         public int CompanyId { get; set; }
+        public List<TeamDTO> Teams { get; set; }
     }
 }

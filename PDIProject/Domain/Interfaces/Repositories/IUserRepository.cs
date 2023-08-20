@@ -7,5 +7,6 @@ namespace PDIProject.Domain.Interfaces.Repositories
         IEnumerable<User> GetAll();
         void Add(User user);
         User GetById(int id);
+        User GetJobPositionByUserId(int userId);
     }
 }

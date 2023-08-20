@@ -5,25 +5,25 @@
 namespace PDIProject.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class ImplementsSaltInUsers : Migration
+    public partial class AddTeamIdInTaskJob : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "Salt",
-                table: "Users",
-                type: "nvarchar(max)",
+            migrationBuilder.AddColumn<int>(
+                name: "TeamId",
+                table: "TaskJobs",
+                type: "int",
                 nullable: false,
-                defaultValue: "");
+                defaultValue: 0);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Salt",
-                table: "Users");
+                name: "TeamId",
+                table: "TaskJobs");
         }
     }
 }

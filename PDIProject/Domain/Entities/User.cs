@@ -11,16 +11,16 @@
         public Company Company { get; set; }
         public int TeamId { get; set; }
         public Team Team { get; set; }
-        public ICollection<Hability> Habilities { get; set; }
-        public ICollection<TaskJob> TaskJobs { get; set; }
+        public ICollection<HabilityUser> HabilitiesUser { get; set; }
+        public ICollection<TaskJobUser> TaskJobUsers { get; set; }
         public int JobPositionId { get; set; }
         public JobPosition JobPosition { get; set; }
         public User() 
         {
             Deleted = false;
             CreatedAt = DateTime.Now;
-            Habilities = new List<Hability>();
-            TaskJobs = new List<TaskJob>();
+            HabilitiesUser = new List<HabilityUser>();
+            TaskJobUsers = new List<TaskJobUser>();
         }
     }
 }

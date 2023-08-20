@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PDIProject.Domain.Commands.TaskJobCommands;
 using PDIProject.Domain.Interfaces.Services;
 using System.Net;
 
@@ -27,6 +28,14 @@ namespace PDIProject.Presentation.Controllers
         {
             var result = _taskJobService.GetByCompanyId(companyId);
             return StatusCode((int)HttpStatusCode.OK, result);
+        }
+
+        [HttpPost]
+        [Route("")]
+        public IActionResult CreateTaskJob(TaskJobCommand command)
+        {
+            _taskJobService.CreateTaskJob(command);
+            return StatusCode(201);
         }
     }
 }

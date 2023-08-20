@@ -7,6 +7,11 @@ namespace PDIProject.Persistence.Maps
     {
         public static void Map(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Hability>()
+                .HasMany(x => x.HabilitiesUser)
+                .WithOne(x => x.Hability)
+                .HasForeignKey(x => x.HabilityId)
+                .IsRequired();
         }
     }
 }

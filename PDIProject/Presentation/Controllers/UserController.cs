@@ -43,5 +43,7 @@ namespace PDIProject.Presentation.Controllers
             _userService.CreateUser(user);
             return StatusCode((int)HttpStatusCode.Created, "Usuário criado com sucesso!");
         }
+
+
     }
 }

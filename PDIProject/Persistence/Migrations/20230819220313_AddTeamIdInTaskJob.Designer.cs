@@ -12,8 +12,8 @@ using PDIProject.Persistence;
 namespace PDIProject.Persistence.Migrations
 {
     [DbContext(typeof(PDIDataContext))]
-    [Migration("20230819194948_ImplementsSaltInUsers")]
-    partial class ImplementsSaltInUsers
+    [Migration("20230819220313_AddTeamIdInTaskJob")]
+    partial class AddTeamIdInTaskJob
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,21 +24,6 @@ namespace PDIProject.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("HabilityUser", b =>
-                {
-                    b.Property<int>("HabilitiesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("HabilitiesId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("HabilityUser");
-                });
 
             modelBuilder.Entity("PDIProject.Domain.Entities.Address", b =>
                 {
@@ -161,6 +146,9 @@ namespace PDIProject.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -181,6 +169,41 @@ namespace PDIProject.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Habilities");
+                });
+
+            modelBuilder.Entity("PDIProject.Domain.Entities.HabilityUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateAcquisition")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("HabilityId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HabilityId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("HabilitiesUsers");
                 });
 
             modelBuilder.Entity("PDIProject.Domain.Entities.JobPosition", b =>
@@ -214,32 +237,6 @@ namespace PDIProject.Persistence.Migrations
                     b.ToTable("JobPositions");
                 });
 
-            modelBuilder.Entity("PDIProject.Domain.Entities.Requirement", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Requirements");
-                });
-
             modelBuilder.Entity("PDIProject.Domain.Entities.TaskJob", b =>
                 {
                     b.Property<int>("Id")
@@ -268,6 +265,9 @@ namespace PDIProject.Persistence.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -276,6 +276,41 @@ namespace PDIProject.Persistence.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("TaskJobs");
+                });
+
+            modelBuilder.Entity("PDIProject.Domain.Entities.TaskJobUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("AssignmentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("TaskJobId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TaskJobId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TaskJobUsers");
                 });
 
             modelBuilder.Entity("PDIProject.Domain.Entities.Team", b =>
@@ -365,51 +400,6 @@ namespace PDIProject.Persistence.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("RequirementTaskJob", b =>
-                {
-                    b.Property<int>("RequirementsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TaskJobsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RequirementsId", "TaskJobsId");
-
-                    b.HasIndex("TaskJobsId");
-
-                    b.ToTable("RequirementTaskJob");
-                });
-
-            modelBuilder.Entity("TaskJobUser", b =>
-                {
-                    b.Property<int>("TaskJobsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("TaskJobsId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("TaskJobUser");
-                });
-
-            modelBuilder.Entity("HabilityUser", b =>
-                {
-                    b.HasOne("PDIProject.Domain.Entities.Hability", null)
-                        .WithMany()
-                        .HasForeignKey("HabilitiesId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("PDIProject.Domain.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("PDIProject.Domain.Entities.Company", b =>
                 {
                     b.HasOne("PDIProject.Domain.Entities.Address", "Address")
@@ -432,6 +422,25 @@ namespace PDIProject.Persistence.Migrations
                     b.Navigation("Company");
                 });
 
+            modelBuilder.Entity("PDIProject.Domain.Entities.HabilityUser", b =>
+                {
+                    b.HasOne("PDIProject.Domain.Entities.Hability", "Hability")
+                        .WithMany("HabilitiesUser")
+                        .HasForeignKey("HabilityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("PDIProject.Domain.Entities.User", "User")
+                        .WithMany("HabilitiesUser")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Hability");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("PDIProject.Domain.Entities.JobPosition", b =>
                 {
                     b.HasOne("PDIProject.Domain.Entities.Company", null)
@@ -450,6 +459,25 @@ namespace PDIProject.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("PDIProject.Domain.Entities.TaskJobUser", b =>
+                {
+                    b.HasOne("PDIProject.Domain.Entities.TaskJob", "TaskJob")
+                        .WithMany("TaskJobUsers")
+                        .HasForeignKey("TaskJobId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("PDIProject.Domain.Entities.User", "User")
+                        .WithMany("TaskJobUsers")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("TaskJob");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("PDIProject.Domain.Entities.Team", b =>
@@ -490,36 +518,6 @@ namespace PDIProject.Persistence.Migrations
                     b.Navigation("Team");
                 });
 
-            modelBuilder.Entity("RequirementTaskJob", b =>
-                {
-                    b.HasOne("PDIProject.Domain.Entities.Requirement", null)
-                        .WithMany()
-                        .HasForeignKey("RequirementsId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("PDIProject.Domain.Entities.TaskJob", null)
-                        .WithMany()
-                        .HasForeignKey("TaskJobsId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("TaskJobUser", b =>
-                {
-                    b.HasOne("PDIProject.Domain.Entities.TaskJob", null)
-                        .WithMany()
-                        .HasForeignKey("TaskJobsId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("PDIProject.Domain.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("PDIProject.Domain.Entities.Company", b =>
                 {
                     b.Navigation("Departments");
@@ -536,14 +534,31 @@ namespace PDIProject.Persistence.Migrations
                     b.Navigation("Teams");
                 });
 
+            modelBuilder.Entity("PDIProject.Domain.Entities.Hability", b =>
+                {
+                    b.Navigation("HabilitiesUser");
+                });
+
             modelBuilder.Entity("PDIProject.Domain.Entities.JobPosition", b =>
                 {
                     b.Navigation("Users");
                 });
 
+            modelBuilder.Entity("PDIProject.Domain.Entities.TaskJob", b =>
+                {
+                    b.Navigation("TaskJobUsers");
+                });
+
             modelBuilder.Entity("PDIProject.Domain.Entities.Team", b =>
                 {
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("PDIProject.Domain.Entities.User", b =>
+                {
+                    b.Navigation("HabilitiesUser");
+
+                    b.Navigation("TaskJobUsers");
                 });
 #pragma warning restore 612, 618
         }

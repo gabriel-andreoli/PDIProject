@@ -1,4 +1,5 @@
-﻿using PDIProject.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PDIProject.Domain.Entities;
 using PDIProject.Domain.Interfaces.Repositories;
 using PDIProject.Persistence;
 
@@ -29,7 +30,17 @@ namespace PDIProject.Domain.Repositories
 
         public IEnumerable<Team> GetAllByCompanyId(int companyId)
         {
-            return _context.Teams.Where(x => x.Department.CompanyId == companyId && !x.Deleted);
+            return _context.Teams
+                .Include(d => d.Department)
+                .Include(u => u.Users)
+                .ThenInclude(t => t.TaskJobUsers)
+                .ThenInclude(tj => tj.TaskJob)
+                .Where(x => x.Department.CompanyId == companyId && !x.Deleted);
+        }
+
+        public Team GetByTeamIdAndCompanyId(int teamId, int companyId) 
+        {
+            return _context.Teams.Where(x => x.Id == teamId && x.Department.CompanyId == companyId && !x.Deleted).FirstOrDefault();
         }
     }
 }

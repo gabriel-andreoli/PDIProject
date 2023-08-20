@@ -40,6 +40,7 @@ namespace PDIProject.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -47,22 +48,6 @@ namespace PDIProject.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Habilities", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Requirements",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Deleted = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Requirements", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -181,28 +166,6 @@ namespace PDIProject.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RequirementTaskJob",
-                columns: table => new
-                {
-                    RequirementsId = table.Column<int>(type: "int", nullable: false),
-                    TaskJobsId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RequirementTaskJob", x => new { x.RequirementsId, x.TaskJobsId });
-                    table.ForeignKey(
-                        name: "FK_RequirementTaskJob_Requirements_RequirementsId",
-                        column: x => x.RequirementsId,
-                        principalTable: "Requirements",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_RequirementTaskJob_TaskJobs_TaskJobsId",
-                        column: x => x.TaskJobsId,
-                        principalTable: "TaskJobs",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -211,6 +174,7 @@ namespace PDIProject.Persistence.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Salt = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Photo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
                     TeamId = table.Column<int>(type: "int", nullable: false),
@@ -240,45 +204,57 @@ namespace PDIProject.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "HabilityUser",
+                name: "HabilitiesUsers",
                 columns: table => new
                 {
-                    HabilitiesId = table.Column<int>(type: "int", nullable: false),
-                    UsersId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    HabilityId = table.Column<int>(type: "int", nullable: false),
+                    DateAcquisition = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_HabilityUser", x => new { x.HabilitiesId, x.UsersId });
+                    table.PrimaryKey("PK_HabilitiesUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_HabilityUser_Habilities_HabilitiesId",
-                        column: x => x.HabilitiesId,
+                        name: "FK_HabilitiesUsers_Habilities_HabilityId",
+                        column: x => x.HabilityId,
                         principalTable: "Habilities",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_HabilityUser_Users_UsersId",
-                        column: x => x.UsersId,
+                        name: "FK_HabilitiesUsers_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "TaskJobUser",
+                name: "TaskJobUsers",
                 columns: table => new
                 {
-                    TaskJobsId = table.Column<int>(type: "int", nullable: false),
-                    UsersId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TaskJobId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    AssignmentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TaskJobUser", x => new { x.TaskJobsId, x.UsersId });
+                    table.PrimaryKey("PK_TaskJobUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TaskJobUser_TaskJobs_TaskJobsId",
-                        column: x => x.TaskJobsId,
+                        name: "FK_TaskJobUsers_TaskJobs_TaskJobId",
+                        column: x => x.TaskJobId,
                         principalTable: "TaskJobs",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_TaskJobUser_Users_UsersId",
-                        column: x => x.UsersId,
+                        name: "FK_TaskJobUsers_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id");
                 });
@@ -295,9 +271,14 @@ namespace PDIProject.Persistence.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_HabilityUser_UsersId",
-                table: "HabilityUser",
-                column: "UsersId");
+                name: "IX_HabilitiesUsers_HabilityId",
+                table: "HabilitiesUsers",
+                column: "HabilityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HabilitiesUsers_UserId",
+                table: "HabilitiesUsers",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_JobPositions_CompanyId",
@@ -305,19 +286,19 @@ namespace PDIProject.Persistence.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RequirementTaskJob_TaskJobsId",
-                table: "RequirementTaskJob",
-                column: "TaskJobsId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_TaskJobs_CompanyId",
                 table: "TaskJobs",
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TaskJobUser_UsersId",
-                table: "TaskJobUser",
-                column: "UsersId");
+                name: "IX_TaskJobUsers_TaskJobId",
+                table: "TaskJobUsers",
+                column: "TaskJobId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TaskJobUsers_UserId",
+                table: "TaskJobUsers",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Teams_DepartmentId",
@@ -344,19 +325,13 @@ namespace PDIProject.Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "HabilityUser");
+                name: "HabilitiesUsers");
 
             migrationBuilder.DropTable(
-                name: "RequirementTaskJob");
-
-            migrationBuilder.DropTable(
-                name: "TaskJobUser");
+                name: "TaskJobUsers");
 
             migrationBuilder.DropTable(
                 name: "Habilities");
-
-            migrationBuilder.DropTable(
-                name: "Requirements");
 
             migrationBuilder.DropTable(
                 name: "TaskJobs");

@@ -1,4 +1,5 @@
-﻿using PDIProject.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PDIProject.Domain.Entities;
 using PDIProject.Domain.Interfaces.Repositories;
 using PDIProject.Persistence;
 
