@@ -19,6 +19,12 @@ namespace PDIProject.Persistence.Maps
                 .WithOne(x => x.TaskJob)
                 .HasForeignKey(x => x.TaskJobId)
                 .IsRequired();
+
+            modelBuilder.Entity<TaskJob>()
+                .HasMany(x => x.Requirements)
+                .WithOne(x => x.TaskJob)
+                .HasForeignKey(x => x.TaskJobId)
+                .IsRequired();
         }
     }
 }

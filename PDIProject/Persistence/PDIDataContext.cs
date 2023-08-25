@@ -15,6 +15,7 @@ namespace PDIProject.Persistence
         public DbSet<Ability> Abilities { get; set; }
         public DbSet<AbilityUser> AbilitiesUsers { get; set; }
         public DbSet<JobPosition> JobPositions { get; set; }
+        public DbSet<Requirement> Requirements { get; set; }
         public DbSet<TaskJob> TaskJobs { get; set; }
         public DbSet<TaskJobUser> TaskJobsUsers { get; set; }
         public DbSet<Team> Teams { get; set; }

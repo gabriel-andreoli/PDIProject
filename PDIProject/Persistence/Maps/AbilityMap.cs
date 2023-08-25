@@ -12,6 +12,12 @@ namespace PDIProject.Persistence.Maps
                 .WithOne(x => x.Ability)
                 .HasForeignKey(x => x.AbilityId)
                 .IsRequired();
+
+            modelBuilder.Entity<Ability>()
+                .HasMany(x => x.Requirements)
+                .WithOne(x => x.Ability)
+                .HasForeignKey(x => x.AbilityId)
+                .IsRequired();
         }
     }
 }
