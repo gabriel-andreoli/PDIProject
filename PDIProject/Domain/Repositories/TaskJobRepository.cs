@@ -26,5 +26,10 @@ namespace PDIProject.Domain.Repositories
         {
             return _context.TaskJobs.Where(x => x.Id == id && !x.Deleted).FirstOrDefault();
         }
+
+        public List<Ability> GetAllRequirementsByCompanyId(int companyId)
+        {
+            return _context.Abilities.Where(x => x.CompanyId == companyId && !x.Deleted).ToList();
+        }
     }
 }

@@ -46,10 +46,13 @@ namespace PDIProject.Domain.Services
             if (team == null)
                 throw new ArgumentNullException($"{nameof(team)} is null");
 
-            if(company == null)
+            if (company == null)
                 throw new ArgumentNullException($"{nameof(company)} is null");
 
-            
+            if (command.RequirementsAbilitiesIdsWithPriority == null)
+                throw new ArgumentNullException("A tarefa deve ter no mínimo 1 requisito");
+
+
             var newTaskJob = new TaskJob() 
             {
                 Name = command.Name,
@@ -57,8 +60,33 @@ namespace PDIProject.Domain.Services
                 Company = company,
                 TeamId = team.Id,
                 Status = ETaskJobStatus.Pending,
-                ExpirationDate = command.ExpirationDate.ToDateTime(),
+                ExpirationDate = command.ExpirationDate.ToDateTime()
             };
+
+
+            foreach (var obj in command.RequirementsAbilitiesIdsWithPriority)
+            {
+                if (obj.Value == null)
+                    continue;
+
+                if (obj.Key == null)
+                    continue;
+
+                var abilityId = obj.Key;
+                var priority = obj.Value;
+
+                var ability = _userRepository.GetAbilityById(abilityId);
+
+                if (ability == null)
+                    throw new ArgumentException("A habilidade não foi encontrada, verifique os dados");
+
+                new Requirement() 
+                {
+                    TaskJob = newTaskJob,
+                    Ability = ability,
+                    Priority = (ERequirementPriority)priority
+                };
+            }
 
             _taskJobRepository.Add(newTaskJob);
             Commit();
@@ -117,7 +145,13 @@ namespace PDIProject.Domain.Services
                     {
                         var taskJobDTO = taskJobUser.TaskJob.ToTaskJobMinimalDTO();
                         userDTO.TaskJobs.Add(taskJobDTO);
+
+                        foreach (var requirement in taskJobUser.TaskJob.Requirements)
+                        {
+                            taskJobDTO.Requirements.Add(requirement.ToRequirementDTO());
+                        }
                     }
+
                     taskJobUsers.Add(userDTO);
                 }
                 var teamDTO = team.ToTeamDTO();
@@ -131,6 +165,14 @@ namespace PDIProject.Domain.Services
                 CompanyId = companyId
             };
             return result;
+        }
+
+        public List<Ability> GetAllRequirementsByCompanyId(int companyId)
+        {
+            if (companyId == null)
+                throw new ArgumentException("");
+
+            return _taskJobRepository.GetAllRequirementsByCompanyId(companyId);
         }
     }
 }

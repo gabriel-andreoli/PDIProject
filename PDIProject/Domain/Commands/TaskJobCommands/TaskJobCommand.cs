@@ -9,5 +9,6 @@ namespace PDIProject.Domain.Commands.TaskJobCommands
         public int ExpirationDate { get; set; }
         public int CompanyId { get; set; }
         public int TeamId { get; set; }
+        public Dictionary<int, int> RequirementsAbilitiesIdsWithPriority { get; set; }
     }
 }

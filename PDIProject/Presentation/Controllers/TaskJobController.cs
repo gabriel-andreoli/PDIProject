@@ -45,5 +45,13 @@ namespace PDIProject.Presentation.Controllers
             _taskJobService.AssignTaskJobOnUser(command);
             return StatusCode(201);
         }
+
+        [HttpGet]
+        [Route("requirements")]
+        public IActionResult GetAllRequirements(int companyId) 
+        {
+            var result = _taskJobService.GetAllRequirementsByCompanyId(companyId);
+            return StatusCode((int)HttpStatusCode.OK, result);
+        }
     }
 }

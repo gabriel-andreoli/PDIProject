@@ -36,6 +36,7 @@ namespace PDIProject.Domain.Repositories
                 .ThenInclude(h => h.Ability)
                 .Include(tju => tju.TaskJobsUsers)
                 .ThenInclude(tj => tj.TaskJob)
+                .ThenInclude(r => r.Requirements)
                 .Where(x => x.TeamId == teamId && !x.Deleted).ToList();
         }
 
