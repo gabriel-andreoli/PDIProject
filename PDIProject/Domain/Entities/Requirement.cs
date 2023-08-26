@@ -9,6 +9,10 @@ namespace PDIProject.Domain.Entities
         public Ability Ability { get; set; }
         public int AbilityId { get; set; }
         public ERequirementPriority Priority {get; set;}
-        public Requirement() { }
+        public Requirement() 
+        {
+            Deleted = false;
+            CreatedAt = DateTime.Now;
+        }
     }
 }

@@ -31,5 +31,10 @@ namespace PDIProject.Domain.Repositories
         {
             return _context.Abilities.Where(x => x.CompanyId == companyId && !x.Deleted).ToList();
         }
+
+        public void AddRequirement(Requirement requirement)
+        {
+            _context.Requirements.Add(requirement);
+        }
     }
 }

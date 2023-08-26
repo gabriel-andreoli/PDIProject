@@ -9,5 +9,6 @@ namespace PDIProject.Domain.Interfaces.Repositories
         void Add(TaskJob taskJob);
         TaskJob GetById(int id);
         List<Ability> GetAllRequirementsByCompanyId(int companyId);
+        void AddRequirement(Requirement requirement);
     }
 }

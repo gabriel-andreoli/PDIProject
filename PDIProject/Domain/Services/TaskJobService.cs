@@ -66,11 +66,11 @@ namespace PDIProject.Domain.Services
 
             foreach (var obj in command.RequirementsAbilitiesIdsWithPriority)
             {
-                if (obj.Value == null)
-                    continue;
-
                 if (obj.Key == null)
                     continue;
+
+                if (obj.Value == null)
+                    command.RequirementsAbilitiesIdsWithPriority[obj.Key] = 0;
 
                 var abilityId = obj.Key;
                 var priority = obj.Value;
@@ -80,12 +80,14 @@ namespace PDIProject.Domain.Services
                 if (ability == null)
                     throw new ArgumentException("A habilidade não foi encontrada, verifique os dados");
 
-                new Requirement() 
+                var requirement = new Requirement() 
                 {
                     TaskJob = newTaskJob,
                     Ability = ability,
                     Priority = (ERequirementPriority)priority
                 };
+
+                _taskJobRepository.AddRequirement(requirement);
             }
 
             _taskJobRepository.Add(newTaskJob);
