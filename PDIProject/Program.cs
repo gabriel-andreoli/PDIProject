@@ -10,8 +10,13 @@ using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString = $"Host={Environment.GetEnvironmentVariable("Host")};" +
+                           $"Database={Environment.GetEnvironmentVariable("Database")};" +
+                           $"Username={Environment.GetEnvironmentVariable("Username")};" +
+                           $"Password={Environment.GetEnvironmentVariable("Password")}";
+
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("PDIcs");
+//var connectionString = builder.Configuration.GetConnectionString("PDIcs");
 
 builder.Services.AddDbContext<PDIDataContext>(o => o.UseNpgsql(connectionString));
 
@@ -40,10 +45,10 @@ builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 
 builder.Services.AddCors(options =>
-    options.AddPolicy(name: "MyPolicy", 
+    options.AddPolicy(name: "MyPolicy",
         policy =>
         {
-            policy.WithOrigins("http://localhost:5173").AllowAnyHeader().AllowAnyMethod();
+            policy.WithOrigins($"http://{Environment.GetEnvironmentVariable("Pcgab")}:5173").AllowAnyHeader().AllowAnyMethod();
         }
     )
 );
