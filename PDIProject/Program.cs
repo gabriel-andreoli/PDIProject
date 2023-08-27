@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("PDIcs");
 
-builder.Services.AddDbContext<PDIDataContext>(o => o.UseSqlServer(connectionString));
+builder.Services.AddDbContext<PDIDataContext>(o => o.UseNpgsql(connectionString));
 
 builder.Services.AddControllers();
 
