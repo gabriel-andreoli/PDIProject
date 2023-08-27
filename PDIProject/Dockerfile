@@ -7,9 +7,10 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["PDIProject/PDIProject.csproj", "."]
 RUN dotnet restore "./PDIProject.csproj"
-COPY . .
-WORKDIR "/PDIProject/."
-RUN dotnet build "PDIProject/PDIProject.csproj" -c Release -o /app/build
+COPY ["PDIProject/PDIProject.csproj", "."]
+WORKDIR "/PDIProject"
+RUN dotnet build "PDIProject.csproj" -c Release -o /app/build
+
 
 FROM build AS publish
 RUN dotnet publish "PDIProject.csproj" -c Release -o /app/publish /p:UseAppHost=false
