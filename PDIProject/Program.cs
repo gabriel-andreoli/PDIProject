@@ -39,7 +39,14 @@ builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 
-
+builder.Services.AddCors(options =>
+    options.AddPolicy(name: "MyPolicy", 
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:5173").AllowAnyHeader().AllowAnyMethod();
+        }
+    )
+);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -57,6 +64,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors("MyPolicy");
 
 app.MapControllers();
 
