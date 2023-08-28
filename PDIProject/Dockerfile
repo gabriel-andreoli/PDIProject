@@ -18,6 +18,9 @@ RUN dotnet tool install --global dotnet-ef --version 7.0.9
 # Add the EF Core CLI tool to the PATH
 ENV PATH="${PATH}:/root/.dotnet/tools"
 
+# Copy the secrets file to the migration stage
+COPY secrets_db.env ./secrets_db.env
+
 # Perform migrations and database update
 RUN dotnet ef migrations add DeployMigration -o Persistence/Migrations
 RUN dotnet ef database update
