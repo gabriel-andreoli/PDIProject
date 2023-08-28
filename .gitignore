@@ -16,3 +16,5 @@ temp/
 *.user
 *.userprefs
 *.vscode
+*.env
+.env
