@@ -10,12 +10,17 @@ RUN dotnet restore "PDIProject/PDIProject.csproj"
 COPY . .
 
 # Stage 2: Run Entity Framework Migrations
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS migration
+FROM build AS migration
 WORKDIR /src/PDIProject
-RUN dotnet tool install --global dotnet-ef
-RUN dotnet ef migrations add DeployMigration -o Persistence/Migrations
 
-# Apply database migrations
+# Install the EF Core CLI tool
+RUN dotnet tool install --global dotnet-ef --version 6.0.0
+
+# Add the EF Core CLI tool to the PATH
+ENV PATH="${PATH}:/root/.dotnet/tools"
+
+# Perform migrations and database update
+RUN dotnet ef migrations add DeployMigration -o Persistence/Migrations
 RUN dotnet ef database update
 
 # Stage 3: Publish the application
