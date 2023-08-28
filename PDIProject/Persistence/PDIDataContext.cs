@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PDIProject.Domain.Entities;
 using PDIProject.Persistence.Maps;
 using System.Reflection.Metadata;
@@ -30,9 +31,27 @@ namespace PDIProject.Persistence
             TaskJobMap.Map(modelBuilder);
             DepartmentMap.Map(modelBuilder);
             TeamMap.Map(modelBuilder);
+
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
                 relationship.DeleteBehavior = DeleteBehavior.NoAction;
+            }
+
+            //Postgresql para fazer a conversão de DateTime para DateTimeUtc
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                foreach (var property in entityType.GetProperties())
+                {
+                    if (property.ClrType == typeof(DateTime))
+                    {
+                        var converter = new ValueConverter<DateTime, DateTime>(
+                            v => v.ToUniversalTime(),
+                            v => DateTime.SpecifyKind(v, DateTimeKind.Utc)
+                        );
+
+                        property.SetValueConverter(converter);
+                    }
+                }
             }
         }
     }
