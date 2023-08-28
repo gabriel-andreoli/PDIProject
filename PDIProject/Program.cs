@@ -10,12 +10,10 @@ using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//var connectionString = $"Host={Environment.GetEnvironmentVariable("HOST")};" +
-//                           $"Database={Environment.GetEnvironmentVariable("DATABASE")};" +
-//                           $"Username={Environment.GetEnvironmentVariable("USERNAME")};" +
-//                           $"Password={Environment.GetEnvironmentVariable("PASSWORD")}";
-
-var connectionString = "Host=dpg-cjlt3s5k5scs73b7batg-a; Database=pdiproject; Username=gabrielandreoli; Password=83cDMdzpjw6ytBCfQWEYFyWLKzhNxo9m";
+var connectionString = $"Host={Environment.GetEnvironmentVariable("HOST")};" +
+                           $"Database={Environment.GetEnvironmentVariable("DATABASE")};" +
+                           $"Username={Environment.GetEnvironmentVariable("USERNAME")};" +
+                           $"Password={Environment.GetEnvironmentVariable("PASSWORD")}";
 
 // Add services to the container.
 //var connectionString = builder.Configuration.GetConnectionString("PDIcs");
