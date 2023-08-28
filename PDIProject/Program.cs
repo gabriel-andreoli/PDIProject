@@ -10,10 +10,10 @@ using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = $"Host={Environment.GetEnvironmentVariable("Host")};" +
-                           $"Database={Environment.GetEnvironmentVariable("Database")};" +
-                           $"Username={Environment.GetEnvironmentVariable("Username")};" +
-                           $"Password={Environment.GetEnvironmentVariable("Password")}";
+var connectionString = $"Host={Environment.GetEnvironmentVariable("HOST")};" +
+                           $"Database={Environment.GetEnvironmentVariable("DATABASE")};" +
+                           $"Username={Environment.GetEnvironmentVariable("USERNAME")};" +
+                           $"Password={Environment.GetEnvironmentVariable("PASSWORD")}";
 
 // Add services to the container.
 //var connectionString = builder.Configuration.GetConnectionString("PDIcs");
@@ -48,7 +48,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "MyPolicy",
         policy =>
         {
-            policy.WithOrigins($"http://{Environment.GetEnvironmentVariable("Pcgab")}").AllowAnyHeader().AllowAnyMethod();
+            policy.WithOrigins($"http://{Environment.GetEnvironmentVariable("PCGAB")}").AllowAnyHeader().AllowAnyMethod();
         }
     )
 );
