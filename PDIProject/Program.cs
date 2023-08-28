@@ -10,10 +10,15 @@ using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = $"Host={Environment.GetEnvironmentVariable("HOST")};" +
-                           $"Database={Environment.GetEnvironmentVariable("DATABASE")};" +
-                           $"Username={Environment.GetEnvironmentVariable("USERNAME")};" +
-                           $"Password={Environment.GetEnvironmentVariable("PASSWORD")}";
+//var connectionString = $"Host={Environment.GetEnvironmentVariable("HOST")};" +
+//                           $"Database={Environment.GetEnvironmentVariable("DATABASE")};" +
+//                           $"Username={Environment.GetEnvironmentVariable("USERNAME")};" +
+//                           $"Password={Environment.GetEnvironmentVariable("PASSWORD")}";
+
+var secretFilePath = "/etc/secrets/database_secrets.env";
+var secretFileLines = File.ReadAllLines(secretFilePath);
+
+var connectionString = string.Join(";", secretFileLines);
 
 // Add services to the container.
 //var connectionString = builder.Configuration.GetConnectionString("PDIcs");

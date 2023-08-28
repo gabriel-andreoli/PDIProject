@@ -4,6 +4,7 @@ WORKDIR /src
 
 # Copy the project file and restore dependencies
 COPY ["PDIProject/PDIProject.csproj", "PDIProject/"]
+COPY database_secrets.env /app/database_secrets.env
 RUN dotnet restore "PDIProject/PDIProject.csproj"
 
 # Copy the rest of the application code
