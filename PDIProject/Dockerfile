@@ -1,7 +1,3 @@
-export DOCKER_BUILDKIT=1
-# syntax = docker/dockerfile:1.2
-RUN --mount=type=secret,id=_env,dst=/etc/secrets/.env cat /etc/secrets/.env
-
 # Stage 1: Build the application
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
@@ -10,6 +6,7 @@ WORKDIR /src
 COPY ["PDIProject/PDIProject.csproj", "PDIProject/"]
 RUN dotnet restore "PDIProject/PDIProject.csproj"
 # Copy the rest of the application code
+COPY .env .env
 COPY . .
 
 # Stage 2: Run Entity Framework Migrations
