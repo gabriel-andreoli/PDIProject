@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 //                           $"Username={Environment.GetEnvironmentVariable("USERNAME")};" +
 //                           $"Password={Environment.GetEnvironmentVariable("PASSWORD")}";
 
-var secretFilePath = "/etc/secrets/secrets_db.env";
+var secretFilePath = "./secrets_db.env";
 var secretFileLines = File.ReadAllLines(secretFilePath);
 
 var connectionString = string.Join(";", secretFileLines);
