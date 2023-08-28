@@ -14,7 +14,7 @@ FROM build AS migration
 WORKDIR /src/PDIProject
 
 # Install the EF Core CLI tool
-RUN dotnet tool install --global dotnet-ef --version 6.0.0
+RUN dotnet tool install --global dotnet-ef --version 7.0.9
 
 # Add the EF Core CLI tool to the PATH
 ENV PATH="${PATH}:/root/.dotnet/tools"
