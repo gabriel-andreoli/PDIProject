@@ -1,3 +1,5 @@
+# syntax = docker/dockerfile:1.2
+RUN --mount=type=secret,id=_env,dst=/etc/secrets/.env
 # Stage 1: Build the application
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
