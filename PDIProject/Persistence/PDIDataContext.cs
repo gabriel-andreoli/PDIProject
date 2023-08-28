@@ -9,17 +9,17 @@ namespace PDIProject.Persistence
     public class PDIDataContext : DbContext
     {
         public PDIDataContext(DbContextOptions<PDIDataContext> options) : base(options) {}
-        public DbSet<Address> adresses { get; set; }
-        public DbSet<Company> companies { get; set; }
-        public DbSet<Department> departments { get; set; }
-        public DbSet<Ability> abilities { get; set; }
-        public DbSet<AbilityUser> abilitiesusers { get; set; }
-        public DbSet<JobPosition> jobpositions { get; set; }
-        public DbSet<Requirement> requirements { get; set; }
-        public DbSet<TaskJob> taskjobs { get; set; }
-        public DbSet<TaskJobUser> taskjobsusers { get; set; }
-        public DbSet<Team> teams { get; set; }
-        public DbSet<User> users { get; set; }
+        public DbSet<Address> Adresses { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Ability> Abilities { get; set; }
+        public DbSet<AbilityUser> AbilitiesUsers { get; set; }
+        public DbSet<JobPosition> JobPositions { get; set; }
+        public DbSet<Requirement> Requirements { get; set; }
+        public DbSet<TaskJob> TaskJobs { get; set; }
+        public DbSet<TaskJobUser> TaskJobsUsers { get; set; }
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
