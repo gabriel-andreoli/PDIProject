@@ -6,16 +6,22 @@ WORKDIR /src
 COPY ["PDIProject/PDIProject.csproj", "PDIProject/"]
 RUN dotnet restore "PDIProject/PDIProject.csproj"
 
-# Copy the rest of the application code and build
+# Copy the rest of the application code
 COPY . .
-WORKDIR "/src/PDIProject"
-RUN dotnet build "PDIProject.csproj" -c Release -o /app/build
 
-# Stage 2: Publish the application
-FROM build AS publish
+# Stage 2: Run Entity Framework Migrations
+FROM build AS migration
+WORKDIR /src/PDIProject
+RUN dotnet ef migrations add DeployMigration -o Persistence/Migrations
+
+# Apply database migrations
+RUN dotnet ef database update
+
+# Stage 3: Publish the application
+FROM migration AS publish
 RUN dotnet publish "PDIProject.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
-# Stage 3: Final image
+# Stage 4: Final image
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
