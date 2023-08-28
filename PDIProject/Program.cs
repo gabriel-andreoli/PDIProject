@@ -48,7 +48,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "MyPolicy",
         policy =>
         {
-            policy.WithOrigins($"http://{Environment.GetEnvironmentVariable("Pcgab")}:5173").AllowAnyHeader().AllowAnyMethod();
+            policy.WithOrigins($"http://{Environment.GetEnvironmentVariable("Pcgab")}").AllowAnyHeader().AllowAnyMethod();
         }
     )
 );
