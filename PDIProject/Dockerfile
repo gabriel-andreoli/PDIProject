@@ -6,7 +6,6 @@ WORKDIR /src
 COPY ["PDIProject/PDIProject.csproj", "PDIProject/"]
 RUN dotnet restore "PDIProject/PDIProject.csproj"
 # Copy the rest of the application code
-COPY .env .env
 COPY . .
 
 # Stage 2: Run Entity Framework Migrations
