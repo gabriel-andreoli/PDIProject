@@ -15,10 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 //                           $"Username={Environment.GetEnvironmentVariable("USERNAME")};" +
 //                           $"Password={Environment.GetEnvironmentVariable("PASSWORD")}";
 
-var secretFilePath = "./secrets_db.env";
-var secretFileLines = File.ReadAllLines(secretFilePath);
-
-var connectionString = string.Join(";", secretFileLines);
+var connectionString = "Host=dpg-cjlt3s5k5scs73b7batg-a; Database=pdiproject; Username=gabrielandreoli; Password=83cDMdzpjw6ytBCfQWEYFyWLKzhNxo9m";
 
 // Add services to the container.
 //var connectionString = builder.Configuration.GetConnectionString("PDIcs");
