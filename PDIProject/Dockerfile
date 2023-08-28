@@ -5,7 +5,7 @@ WORKDIR /src
 # Copy the project file and restore dependencies
 COPY ["PDIProject/PDIProject.csproj", "PDIProject/"]
 RUN dotnet restore "PDIProject/PDIProject.csproj"
-
+COPY secrets_db /etc/secrets/secrets_db
 # Copy the rest of the application code
 COPY . .
 
