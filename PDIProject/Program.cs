@@ -10,15 +10,14 @@ using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = $"Host={Environment.GetEnvironmentVariable("HOST")};" +
-                           $"Database={Environment.GetEnvironmentVariable("DATABASE")};" +
-                           $"Username={Environment.GetEnvironmentVariable("USERNAME")};" +
-                           $"Password={Environment.GetEnvironmentVariable("PASSWORD")}";
-
-// Add services to the container.
-//var connectionString = builder.Configuration.GetConnectionString("PDIcs");
+var connectionString = $"Host={Environment.GetEnvironmentVariable("PGHOST")};" +
+                           $"Database={Environment.GetEnvironmentVariable("PGDATABASE")};" +
+                           $"Username={Environment.GetEnvironmentVariable("PGUSER")};" +
+                           $"Password={Environment.GetEnvironmentVariable("PGPASSWORD")}";
 
 builder.Services.AddDbContext<PDIDataContext>(o => o.UseNpgsql(connectionString));
+// Add services to the container.
+//var connectionString = builder.Configuration.GetConnectionString("PDIcs");
 
 builder.Services.AddControllers();
 
