@@ -6,5 +6,6 @@ namespace PDIProject.Domain.Interfaces.Repositories
     {
         void CreateDepartment(Department department);
         Department GetById(int id);
+        List<Department> GetAllByCompanyId(int companyId);
     }
 }

@@ -9,6 +9,7 @@ namespace PDIProject.Domain.Interfaces.Repositories
         List<User> GetAllByTeamId(int teamId);
         User GetById(int id);
         User GetJobPositionByUserId(int userId);
+        List<JobPosition> GetAllJobPositionByCompanyId(int companyId);
         //TaskJobs
         User GetByIdWithTaskJob(int userId);
         //Habilities

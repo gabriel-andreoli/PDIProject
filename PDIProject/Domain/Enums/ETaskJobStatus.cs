@@ -15,6 +15,8 @@ namespace PDIProject.Domain.Enums
         [Description("Em espera")]
         OnHold = 4,
         [Description("Abandonada")]
-        Abandoned = 5
+        Abandoned = 5,
+        [Description("Atrasada")]
+        Late = 6
     }
 }

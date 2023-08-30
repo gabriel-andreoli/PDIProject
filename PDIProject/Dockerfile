@@ -6,7 +6,6 @@ WORKDIR /src
 COPY ["PDIProject/PDIProject.csproj", "PDIProject/"]
 RUN dotnet restore "PDIProject/PDIProject.csproj"
 # Copy the rest of the application code
-COPY .env .env
 COPY . .
 
 # Stage 2: Run Entity Framework Migrations
@@ -14,14 +13,14 @@ FROM build AS migration
 WORKDIR /src/PDIProject
 
 # Install the EF Core CLI tool
-#RUN dotnet tool install --global dotnet-ef --version 7.0.9
+RUN dotnet tool install --global dotnet-ef --version 7.0.9
 #
 ## Add the EF Core CLI tool to the PATH
-#ENV PATH="${PATH}:/root/.dotnet/tools"
+ENV PATH="${PATH}:/root/.dotnet/tools"
 #
 ## Perform migrations and database update
 #RUN dotnet ef migrations add DeployMigration -o Persistence/Migrations
-#RUN dotnet ef database update
+RUN dotnet ef database update
 #
 # Stage 3: Publish the application
 FROM migration AS publish

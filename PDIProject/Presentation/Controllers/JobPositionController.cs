@@ -17,6 +17,14 @@ namespace PDIProject.Presentation.Controllers
             _jobPositionService = jobPositionService;
         }
 
+        [HttpGet]
+        [Route("")]
+        public IActionResult GetAllByCompanyId(int companyId)
+        {
+            var result = _jobPositionService.GetAllJobPositionByCompanyId(companyId);
+            return StatusCode((int)HttpStatusCode.OK, result);
+        }
+
         [HttpPost]
         [Route("")]
         public IActionResult CreateJobPosition(JobPositionCommand command) 

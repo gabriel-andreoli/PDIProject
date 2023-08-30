@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PDIProject.Domain.Commands.DepartmentCommands;
 using PDIProject.Domain.Interfaces.Services;
+using System.Net;
 
 namespace PDIProject.Presentation.Controllers
 {
@@ -12,6 +13,14 @@ namespace PDIProject.Presentation.Controllers
         public DepartmentController(IDepartmentService departmentService)
         {
             _departmentService = departmentService;
+        }
+
+        [HttpGet]
+        [Route("")]
+        public IActionResult GetAllByCompanyId(int companyId)
+        {
+            var result = _departmentService.GetAllByCompanyId(companyId);
+            return StatusCode((int)HttpStatusCode.OK, result);
         }
 
         [HttpPost]

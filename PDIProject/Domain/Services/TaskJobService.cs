@@ -53,13 +53,15 @@ namespace PDIProject.Domain.Services
                 throw new ArgumentNullException("A tarefa deve ter no mínimo 1 requisito");
 
 
+            var status = command.ExpirationDate.ToDateTime().Subtract(DateTime.Today).TotalSeconds < 0 ? ETaskJobStatus.Late : ETaskJobStatus.Pending;
+
             var newTaskJob = new TaskJob() 
             {
                 Name = command.Name,
                 Description = command.Description,
                 Company = company,
                 TeamId = team.Id,
-                Status = ETaskJobStatus.Pending,
+                Status = status,
                 ExpirationDate = command.ExpirationDate.ToDateTime()
             };
 
@@ -101,9 +103,13 @@ namespace PDIProject.Domain.Services
             if (taskJob == null)
                 throw new ArgumentNullException("Tarefa não encontrada, verifique os dados e tente novamente");
 
+
             foreach (var userId in command.UserIds)
             { 
                 var user = _userRepository.GetByIdWithTaskJob(userId);
+
+                if (taskJob.TeamId != user.TeamId)
+                    throw new ArgumentException("Não há como vincular uma tarefa a um usuário com um time diferente a da tarefa.");
 
                 if (user == null)
                     throw new ArgumentNullException("Usuário não encontrado");
@@ -157,6 +163,10 @@ namespace PDIProject.Domain.Services
                     taskJobUsers.Add(userDTO);
                 }
                 var teamDTO = team.ToTeamDTO();
+                teamDTO.TotalOfTaskJobsInTeam = _taskJobRepository.GetAllByTeamId(team.Id).Count();
+                teamDTO.TotalOfTaskJobsCompleted = _taskJobRepository.GetAllCompletedByTeamId(team.Id).Count();
+                teamDTO.TotalOfTaskJobsPending = _taskJobRepository.GetAllPendingByTeamId(team.Id).Count();
+                teamDTO.TotalOfTaskJobsLate = _taskJobRepository.GetAllLateByTeamId(team.Id).Count();
                 teamDTO.Users = taskJobUsers;
                 teamsDTO.Add(teamDTO);
             }

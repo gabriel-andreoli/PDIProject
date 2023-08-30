@@ -45,6 +45,11 @@ namespace PDIProject.Domain.Repositories
             return _context.Users.Include(jb => jb.JobPosition).Where(x => x.Id == userId && !x.Deleted).FirstOrDefault();
         }
 
+        public List<JobPosition> GetAllJobPositionByCompanyId(int companyId)
+        {
+            return _context.JobPositions.Where(x => x.CompanyId == companyId && !x.Deleted).ToList();
+        }
+
         public User GetByIdWithTaskJob(int userId) 
         {
             return _context.Users.Include(tju => tju.TaskJobsUsers).ThenInclude(tj => tj.TaskJob).Where(x => x.Id == userId && !x.Deleted).FirstOrDefault();

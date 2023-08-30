@@ -20,5 +20,10 @@ namespace PDIProject.Domain.Repositories
         {
             _context.Departments.Add(department);
         }
+
+        public List<Department> GetAllByCompanyId(int companyId)
+        {
+            return _context.Departments.Where(x => x.CompanyId == companyId && !x.Deleted).ToList();
+        }
     }
 }

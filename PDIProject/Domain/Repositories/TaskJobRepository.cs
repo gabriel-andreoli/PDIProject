@@ -36,5 +36,25 @@ namespace PDIProject.Domain.Repositories
         {
             _context.Requirements.Add(requirement);
         }
+
+        public List<TaskJob> GetAllByTeamId(int teamId)
+        {
+            return _context.TaskJobs.Where(x => x.TeamId == teamId && !x.Deleted).ToList();
+        }
+
+        public List<TaskJob> GetAllCompletedByTeamId(int teamId)
+        {
+            return _context.TaskJobs.Where(x => x.TeamId == teamId && !x.Deleted && x.Status == Enums.ETaskJobStatus.Completed).ToList();
+        }
+
+        public List<TaskJob> GetAllPendingByTeamId(int teamId)
+        {
+            return _context.TaskJobs.Where(x => x.TeamId == teamId && !x.Deleted && x.Status == Enums.ETaskJobStatus.Pending).ToList();
+        }
+
+        public List<TaskJob> GetAllLateByTeamId(int teamId)
+        {
+            return _context.TaskJobs.Where(x => x.TeamId == teamId && !x.Deleted && x.Status == Enums.ETaskJobStatus.Late).ToList();
+        }
     }
 }

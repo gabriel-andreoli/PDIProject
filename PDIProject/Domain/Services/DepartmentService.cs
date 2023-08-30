@@ -34,5 +34,10 @@ namespace PDIProject.Domain.Services
         {
             return _departmentRepository.GetById(id);
         }
+
+        public List<Department> GetAllByCompanyId(int companyId)
+        {
+            return _departmentRepository.GetAllByCompanyId(companyId);
+        }
     }
 }

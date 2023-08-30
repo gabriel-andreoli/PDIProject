@@ -7,5 +7,6 @@ namespace PDIProject.Domain.Interfaces.Services
     {
         void CreateDepartment(DepartmentCommand command);
         Department GetById(int id);
+        List<Department> GetAllByCompanyId(int companyId);
     }
 }
