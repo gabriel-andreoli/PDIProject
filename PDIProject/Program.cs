@@ -44,14 +44,14 @@ builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 
 builder.Services.AddCors(options =>
-    options.AddPolicy(name: "MyPolicy",
-        policy =>
-        {
-            policy.WithOrigins($"http://{Environment.GetEnvironmentVariable("PCGAB")}").AllowAnyHeader().AllowAnyMethod();
-            policy.WithOrigins($"http://{Environment.GetEnvironmentVariable("PCANDRE")}").AllowAnyHeader().AllowAnyMethod();
-        }
-    )
-);
+{
+    options.AddPolicy("AllowAnyOrigin", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -68,7 +68,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.UseCors("MyPolicy");
+app.UseCors("AllowAnyOrigin");
 
 app.MapControllers();
 
