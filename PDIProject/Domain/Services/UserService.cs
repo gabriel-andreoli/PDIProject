@@ -2,6 +2,7 @@
 using PDIProject.Domain.Commands.HabilityCommands;
 using PDIProject.Domain.Commands.UserCommands;
 using PDIProject.Domain.DTOs;
+using PDIProject.Domain.DTOs.UserDTOs;
 using PDIProject.Domain.Entities;
 using PDIProject.Domain.ExtensionMethods;
 using PDIProject.Domain.Interfaces.Repositories;
@@ -31,14 +32,34 @@ namespace PDIProject.Domain.Services
             _teamRepository = teamRepository;
             _jobPositionRepository = jobPositionRepository;
         }
-        public IEnumerable<User> GetAll() 
-        { 
-            return _userRepository.GetAll();
+        public List<UserDTO> GetAllByCompanyId(int companyId) 
+        {
+            var users = _userRepository.GetAllByCompanyIdWithAbilities(companyId);
+            var userDTOs = new List<UserDTO>();
+            foreach (var user in users)
+            {
+                var userDTO = user.ToUserDTO();
+                foreach (var abilityUser in user.AbilitiesUsers)
+                {
+                    userDTO.Abilities.Add(abilityUser.Ability.Name);
+                }
+                userDTOs.Add(userDTO);
+            }
+            return userDTOs;
         }
 
-        public User GetBydId(int id)
+        public UserDTO GetBydId(int id)
         {
-            return _userRepository.GetById(id);
+            var user = _userRepository.GetByIdWithAbilities(id);
+            if (user == null)
+                throw new ArgumentException("O usuário não existe");
+
+            var userDTO = user.ToUserDTO();
+            foreach (var abilityUser in user.AbilitiesUsers)
+            {
+                userDTO.Abilities.Add(abilityUser.Ability.Name);
+            }
+            return userDTO;
         }
 
         public void CreateUser(UserCommand user) 

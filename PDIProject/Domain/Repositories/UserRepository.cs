@@ -72,7 +72,20 @@ namespace PDIProject.Domain.Repositories
 
         public User GetByIdWithAbilities(int userId) 
         {
-            return _context.Users.Include(hu => hu.AbilitiesUsers).ThenInclude(h => h.Ability).Where(x => x.Id == userId && !x.Deleted).FirstOrDefault();
+            return _context.Users
+                .Include(j => j.JobPosition)
+                .Include(hu => hu.AbilitiesUsers)
+                .ThenInclude(h => h.Ability)
+                .Where(x => x.Id == userId && !x.Deleted).FirstOrDefault();
+        }
+
+        public List<User> GetAllByCompanyIdWithAbilities(int userId) 
+        {
+            return _context.Users
+                .Include(j => j.JobPosition)
+                .Include(hu => hu.AbilitiesUsers)
+                .ThenInclude(h => h.Ability)
+                .Where(x => x.Id == userId && !x.Deleted).ToList();
         }
     }
 }

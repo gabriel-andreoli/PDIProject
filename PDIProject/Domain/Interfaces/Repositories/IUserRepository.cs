@@ -17,5 +17,6 @@ namespace PDIProject.Domain.Interfaces.Repositories
         Ability GetAbilityById(int abilityId);
         void AssignAbilityOnUser(AbilityUser abilityUser);
         User GetByIdWithAbilities(int userId);
+        List<User> GetAllByCompanyIdWithAbilities(int userId);
     }
 }

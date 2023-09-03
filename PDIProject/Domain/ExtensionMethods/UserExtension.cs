@@ -1,5 +1,6 @@
 ﻿using PDIProject.Domain.DTOs.HabilityDTOs;
 using PDIProject.Domain.DTOs.TaskJobDTOs;
+using PDIProject.Domain.DTOs.UserDTOs;
 using PDIProject.Domain.Entities;
 
 namespace PDIProject.Domain.ExtensionMethods
@@ -17,6 +18,20 @@ namespace PDIProject.Domain.ExtensionMethods
                 JobPositionName = user.JobPosition.Name,
                 Abilities = new List<AbilityDTO>(),
                 TaskJobs = new List<TaskJobMinimalDTO>()
+            };
+        }
+
+        public static UserDTO ToUserDTO(this User user)
+        {
+            return new UserDTO()
+            {
+                Name = user.Name,
+                Email = user.Email,
+                Photo = user?.Photo,
+                JobPosition = user.JobPosition.Name,
+                CompanyId = user.CompanyId,
+                TeamId = user.TeamId,
+                Abilities = new List<string>()
             };
         }
     }

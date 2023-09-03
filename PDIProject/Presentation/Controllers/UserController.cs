@@ -19,9 +19,9 @@ namespace PDIProject.Presentation.Controllers
 
         [HttpGet]
         [Route("")]
-        public IActionResult GetAll() 
+        public IActionResult GetAllByCompanyId(int companyId) 
         {
-            var users = _userService.GetAll();
+            var users = _userService.GetAllByCompanyId(companyId);
             return Ok(users);
         }
 
